@@ -251,7 +251,7 @@
 
         .date {
             font-feature-settings: "tnum";
-            color: var(--accent-purple);
+            color: #64748b; /* 目立ちすぎないグレーに変更 */
             flex-shrink: 0;
             width: 170px;
             margin-right: 15px;
@@ -358,7 +358,7 @@
             text-underline-offset: 4px;
             transition: all 0.3s ease;
         }
-        
+
         .stealth-link:hover {
             color: var(--accent-cyan);
             text-decoration-color: var(--accent-cyan);
@@ -590,6 +590,87 @@
                 height: 45px;
             }
         }
+
+        /* ニュースのスクロールエリア化 */
+        .news-container {
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 15px;
+            margin-top: 1rem;
+        }
+
+        /* スクロールバーのカスタマイズ (Webkit) */
+        .news-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .news-container::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.03);
+            border-radius: 4px;
+        }
+
+        .news-container::-webkit-scrollbar-thumb {
+            background: rgba(2, 132, 199, 0.2);
+            border-radius: 4px;
+        }
+
+        .news-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(2, 132, 199, 0.4);
+        }
+
+        /* ニュース用タイムラインデザイン */
+        .timeline-list {
+            list-style: none;
+            padding: 10px 0 10px 10px;
+            margin: 0;
+            position: relative;
+        }
+
+        .timeline-list::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 55px;
+            /* バッジの中心(10px+45pxあたり)を貫く線 */
+            width: 2px;
+            background-color: rgba(2, 132, 199, 0.2);
+            z-index: 0;
+        }
+
+        .timeline-list li {
+            position: relative;
+            padding-left: 115px;
+            /* 日付バッジ幅 + 余白 */
+            margin-bottom: 1.5rem;
+            color: #334155;
+            display: block;
+            /* liの不必要なflexを上書き */
+        }
+
+        .timeline-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-list .date {
+            position: absolute;
+            left: 10px;
+            top: -2px;
+            width: 90px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 20px;
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 3px 0;
+            z-index: 1;
+            margin: 0;
+            display: block;
+            box-shadow: 0 0 0 5px var(--bg-color);
+            /* 背景色でくり抜く */
+        }
     </style>
 </head>
 
@@ -620,7 +701,9 @@
             <div style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-cyan); padding-left: 1rem;">
                 <p style="margin: 0; font-size: 1.2rem; font-weight: 700; color: var(--text-color);">太田 俊輔 <span
                         style="font-size: 0.9rem; font-weight: 400; color: #64748b;">(Shunsuke Ota)</span></p>
-                <p style="margin: 0.2rem 0 0 0; font-weight: 500;">東京科学大学 工学院 電気電子系 <a href="http://www.quantum.ee.e.titech.ac.jp/" target="_blank" rel="noopener noreferrer" class="stealth-link" title="小寺研究室">小寺研究室</a> 助教</p>
+                <p style="margin: 0.2rem 0 0 0; font-weight: 500;">東京科学大学 工学院 電気電子系 <a
+                        href="http://www.quantum.ee.e.titech.ac.jp/" target="_blank" rel="noopener noreferrer"
+                        class="stealth-link" title="小寺研究室">小寺研究室</a> 助教</p>
             </div>
 
             <p>量子技術、特に半導体量子ドットを用いた量子ビットや量子コンピュータの基盤技術の研究に従事しています。</p>
@@ -643,9 +726,28 @@
 
         <section id="news">
             <h2><i class="fas fa-bullhorn"></i>ニュース</h2>
-            <ul class="indent-list arrow-list">
-                <li><span class="date">2026-04-01</span> 東京科学大学工学院電気電子系に助教として着任しました。</li>
-            </ul>
+            <div class="news-container">
+                <ul class="timeline-list">
+                    <li><span class="date">2026/04/01</span> 東京科学大学 工学院 電気電子系 助教に着任しました。</li>
+                    <li><span class="date">2026/03/18</span> 第47回応用物理学会論文奨励賞を受賞し、春季学術講演会 @Tokyoにて受賞記念講演を行いました。</li>
+                    <li><span class="date">2026/03/06</span> Leti Science Seminar @CEA (Grenoble, France) にて招待講演を行いました。
+                    </li>
+                    <li><span class="date">2026/02</span> シリコンスピン量子ビットに関する共著論文2報が <em>Japanese Journal of Applied
+                            Physics</em> に掲載されました。</li>
+                    <li><span class="date">2025/12</span> <em>1st International Workshop on Industrial-grade Ge Quantum
+                            Technology</em> @Osakaに参加し、研究発表を行いました。</li>
+                    <li><span class="date">2025/07</span> <em>The International Symposium on Quantum Science, Technology
+                            and Innovation 2025</em> @Osakaに参加し、研究発表を行いました。</li>
+                    <li><span class="date">2025/03</span> 令和6年度手島精一記念研究賞（博士論文賞）を受賞しました。</li>
+                    <li><span class="date">2025/01</span> 東京科学大学 特任助教に着任しました。</li>
+                    <li><span class="date">2025</span> 共著論文が <em>Appl. Phys. Lett.</em> に掲載されました。</li>
+                    <li><span class="date">2024/09</span> 第56回応用物理学会講演奨励賞を受賞し、秋季学術講演会 @Niigataにて受賞記念講演を行いました。</li>
+                    <li><span class="date">2024/04</span> 東京工業大学 研究員に着任しました。</li>
+                    <li><span class="date">2024/03</span> 博士（工学）の学位を取得しました。</li>
+                    <li><span class="date">2024/02</span> 筆頭論文が <em>Phys. Rev. Applied</em> と <em>Appl. Phys.
+                            Express</em> に掲載されました。</li>
+                </ul>
+            </div>
         </section>
 
         <section id="career">

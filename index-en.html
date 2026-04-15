@@ -250,7 +250,7 @@
 
         .date {
             font-feature-settings: "tnum";
-            color: var(--accent-purple);
+            color: #64748b; /* Change to a subtle grey */
             flex-shrink: 0;
             width: 170px;
             margin-right: 15px;
@@ -589,6 +589,87 @@
                 height: 45px;
             }
         }
+
+        /* ニュースのスクロールエリア化 */
+        .news-container {
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 15px;
+            margin-top: 1rem;
+        }
+
+        /* スクロールバーのカスタマイズ (Webkit) */
+        .news-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .news-container::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.03);
+            border-radius: 4px;
+        }
+
+        .news-container::-webkit-scrollbar-thumb {
+            background: rgba(2, 132, 199, 0.2);
+            border-radius: 4px;
+        }
+
+        .news-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(2, 132, 199, 0.4);
+        }
+
+        /* ニュース用タイムラインデザイン */
+        .timeline-list {
+            list-style: none;
+            padding: 10px 0 10px 10px;
+            margin: 0;
+            position: relative;
+        }
+
+        .timeline-list::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 55px;
+            /* バッジの中心(10px+45pxあたり)を貫く線 */
+            width: 2px;
+            background-color: rgba(2, 132, 199, 0.2);
+            z-index: 0;
+        }
+
+        .timeline-list li {
+            position: relative;
+            padding-left: 115px;
+            /* 日付バッジ幅 + 余白 */
+            margin-bottom: 1.5rem;
+            color: #334155;
+            display: block;
+            /* liの不必要なflexを上書き */
+        }
+
+        .timeline-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-list .date {
+            position: absolute;
+            left: 10px;
+            top: -2px;
+            width: 90px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 20px;
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 3px 0;
+            z-index: 1;
+            margin: 0;
+            display: block;
+            box-shadow: 0 0 0 5px var(--bg-color);
+            /* 背景色でくり抜く */
+        }
     </style>
 </head>
 
@@ -644,9 +725,40 @@
 
         <section id="news">
             <h2><i class="fas fa-bullhorn"></i>News</h2>
-            <ul class="indent-list arrow-list">
-                <li><span class="date">2026-04-01</span> Appointed as an Assistant Professor.</li>
-            </ul>
+            <div class="news-container">
+                <ul class="timeline-list">
+                    <li><span class="date">2026/04/01</span> Appointed as Assistant Professor, Department of Electrical
+                        and Electronic Engineering, School of Engineering, Institute of Science Tokyo.</li>
+                    <li><span class="date">2026/03/18</span> Received the 47th JSAP Outstanding Paper Award and
+                        delivered a commemorative presentation at the JSAP Spring Meeting @Tokyo.</li>
+                    <li><span class="date">2026/03/06</span> Gave an invited talk at the Leti Science Seminar @CEA
+                        (Grenoble, France).
+                    </li>
+                    <li><span class="date">2026/02</span> Two co-authored papers on silicon spin qubits were published
+                        in the <em>Japanese Journal of Applied
+                            Physics</em>.</li>
+                    <li><span class="date">2025/12</span> Attended and presented research at the <em>1st International
+                            Workshop on Industrial-grade Ge Quantum
+                            Technology</em> @Osaka.</li>
+                    <li><span class="date">2025/07</span> Attended and presented research at <em>The International
+                            Symposium on Quantum Science, Technology
+                            and Innovation 2025</em> @Osaka.</li>
+                    <li><span class="date">2025/03</span> Received the FY2024 Seiichi Tejima Research Award (Doctoral
+                        Dissertation Award).</li>
+                    <li><span class="date">2025/01</span> Appointed as Specially Appointed Assistant Professor at the
+                        Institute of Science Tokyo.</li>
+                    <li><span class="date">2025</span> A co-authored paper was published in <em>Appl. Phys. Lett.</em>
+                    </li>
+                    <li><span class="date">2024/09</span> Received the 56th JSAP Young Scientist Presentation Award and
+                        delivered a commemorative presentation at the JSAP Autumn Meeting @Niigata.</li>
+                    <li><span class="date">2024/04</span> Appointed as a Researcher at Tokyo Institute of Technology.
+                    </li>
+                    <li><span class="date">2024/03</span> Received a Ph.D. in Engineering.</li>
+                    <li><span class="date">2024/02</span> First-authored papers were published in <em>Phys. Rev.
+                            Applied</em> and <em>Appl. Phys.
+                            Express</em>.</li>
+                </ul>
+            </div>
         </section>
 
         <section id="career">
