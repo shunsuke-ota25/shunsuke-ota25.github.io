@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,17 @@
     <!-- モダンなフォントの導入 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* 量子コンピュータ・ライトテーマをベースにしたモダンデザイン */
         :root {
-            --bg-color: #f8fafc; /* 白っぽく少し青みのある背景 */
-            --text-color: #0f172a; /* 黒っぽいダークスレート */
-            --accent-cyan: #0284c7; /* アクセントのシアン（視認性の良い濃さ） */
-            --accent-purple: #7e22ce; /* アクセントのパープル */
+            --bg-color: #f8fafc;
+            --text-color: #0f172a;
+            --accent-cyan: #0284c7;
+            --accent-purple: #7e22ce;
             --glass-bg: rgba(255, 255, 255, 0.75);
             --glass-border: rgba(2, 132, 199, 0.15);
         }
@@ -28,9 +32,10 @@
             background-color: var(--bg-color);
             position: relative;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* 背景の量子的ゆらぎ（アニメーション） */
+        /* 背景のアニメーション */
         .quantum-bg {
             position: fixed;
             top: 0;
@@ -40,9 +45,9 @@
             z-index: -1;
             overflow: hidden;
             background: radial-gradient(circle at 15% 50%, rgba(2, 132, 199, 0.05), transparent 25%),
-                        radial-gradient(circle at 85% 30%, rgba(126, 34, 206, 0.05), transparent 25%);
+                radial-gradient(circle at 85% 30%, rgba(126, 34, 206, 0.05), transparent 25%);
         }
-        
+
         .quantum-bg::after {
             content: "";
             position: absolute;
@@ -51,18 +56,25 @@
             width: 60vw;
             height: 60vw;
             transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(2,132,199,0.04) 0%, transparent 60%);
+            background: radial-gradient(circle, rgba(2, 132, 199, 0.04) 0%, transparent 60%);
             animation: pulse 8s ease-in-out infinite alternate;
         }
 
         @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 1;
+            }
         }
 
-        /* サイドバー：グラスモーフィズム */
+        /* サイドバー */
         nav {
-            width: 260px;
+            width: 220px;
             height: 100vh;
             position: fixed;
             background: var(--glass-bg);
@@ -70,185 +82,882 @@
             -webkit-backdrop-filter: blur(12px);
             border-right: 1px solid var(--glass-border);
             padding: 2.5rem 2rem;
+            /* パディングを調整 */
             overflow-y: auto;
-            box-shadow: 2px 0 20px rgba(0,0,0,0.03);
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.03);
+            z-index: 10;
         }
 
-        nav h1 { 
-            font-size: 1.4rem; 
-            margin-bottom: 0.5rem; 
+        nav h1 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
             font-weight: 600;
             letter-spacing: 0.05em;
             background: linear-gradient(90deg, var(--accent-cyan), var(--text-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        nav p { 
-            font-size: 0.85rem; 
-            color: #64748b; 
-            margin-bottom: 2.5rem; 
+
+        nav p {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 2.5rem;
             font-weight: 400;
+            line-height: 1.4;
         }
-        nav ul { list-style: none; padding: 0; margin-bottom: 3rem;}
-        nav ul li { margin-bottom: 1rem; }
-        nav ul li a { 
-            text-decoration: none; 
-            color: #475569; 
-            font-size: 0.95rem; 
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 3rem;
+        }
+
+        /* アクティブメニューのハイライト */
+        nav ul li {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #475569;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
         }
-        
-        /* リンクのホバーエフェクト（シャープなライン） */
-        nav ul li a::before {
-            content: "";
-            display: inline-block;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-cyan);
-            transition: all 0.3s ease;
-            margin-right: 0;
-        }
-        nav ul li a:hover { 
-            color: var(--accent-cyan); 
-            font-weight: 500;
-        }
-        nav ul li a:hover::before {
-            width: 15px;
+
+        nav ul li a i {
             margin-right: 10px;
+            width: 16px;
+            text-align: center;
+            color: var(--accent-cyan);
+            opacity: 0.7;
+            transition: all 0.3s ease;
         }
 
-        .lang-switch { margin-bottom: 2rem; font-size: 0.9rem; color: #64748b;}
-        .lang-switch strong { color: var(--text-color); font-weight: 500;}
-        .lang-switch a { color: var(--accent-purple); text-decoration: none; transition: color 0.3s; }
-        .lang-switch a:hover { color: #9333ea; text-decoration: underline; }
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--accent-cyan);
+            font-weight: 500;
+        }
+
+        nav ul li a:hover i,
+        nav ul li a.active i {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        nav ul li a::before {
+            content: "";
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background-color: var(--accent-cyan);
+            transition: height 0.3s ease;
+            border-radius: 2px;
+        }
+
+        nav ul li a.active::before {
+            height: 100%;
+        }
+
+        .lang-switch-container {
+            display: inline-flex;
+            background: rgba(2, 132, 199, 0.08);
+            /* accent-cyan-light */
+            border-radius: 20px;
+            padding: 4px;
+            position: relative;
+            margin-bottom: 1.5rem;
+            align-items: center;
+            cursor: pointer;
+            text-decoration: none !important;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .lang-switch-btn {
+            position: relative;
+            z-index: 1;
+            padding: 4px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none !important;
+            color: #64748b !important;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .lang-switch-btn.active {
+            color: var(--accent-cyan) !important;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15);
+        }
+
+        .lang-switch-container:hover .lang-switch-btn:not(.active) {
+            color: var(--text-color) !important;
+        }
 
         /* メインコンテンツ */
         main {
-            margin-left: 320px; /* サイドバーの幅 + padding */
-            padding: 4rem 8% 5rem 5%;
-            max-width: 850px;
+            margin-left: 284px;
+            /* サイドバーの幅+padding 考慮して調整 */
+            padding: 4rem 5% 6rem 5%;
+            max-width: 900px;
             position: relative;
             z-index: 1;
         }
 
-        section { 
-            margin-bottom: 5rem; 
-            scroll-margin-top: 3rem; 
+        section {
+            margin-bottom: 5rem;
+            scroll-margin-top: 5rem;
+            /* ちょっと上に余白を設ける */
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(2, 132, 199, 0.08);
             padding: 2.5rem;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
             backdrop-filter: blur(5px);
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        
+
         section:hover {
             transform: translateY(-2px);
             border-color: rgba(2, 132, 199, 0.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06), 0 0 15px rgba(2,132,199,0.04);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 0 15px rgba(2, 132, 199, 0.04);
         }
 
-        h2 { 
-            border-bottom: 1px solid rgba(15, 23, 42, 0.1); 
-            padding-bottom: 0.8rem; 
-            font-weight: 600; 
-            font-size: 1.5rem;
+        h2 {
+            border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+            padding-bottom: 0.8rem;
+            font-weight: 600;
+            font-size: 1.4rem;
             color: var(--accent-cyan);
             letter-spacing: 0.05em;
             margin-top: 0;
-            display: inline-block;
+            display: flex;
+            align-items: center;
         }
 
-        .date { 
-            font-feature-settings: "tnum"; 
-            color: var(--accent-purple); 
-            width: 100px; 
-            display: inline-block; 
+        h2 i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+        }
+
+        .date {
+            font-feature-settings: "tnum";
+            color: var(--accent-purple);
+            flex-shrink: 0;
+            width: 170px;
+            margin-right: 15px;
+            display: inline-block;
             font-size: 0.9rem;
             letter-spacing: 0.05em;
             font-weight: 500;
         }
 
-        section ul {
+        /* ぶら下げインデントによるリストの改行見やすさ改善 */
+        .indent-list {
             list-style: none;
             padding-left: 0;
+            margin-bottom: 1.5rem;
         }
-        section li {
+
+        .indent-list li {
+            position: relative;
+            padding-left: 1.8rem;
             margin-bottom: 0.8rem;
             color: #334155;
-            padding-left: 1.5rem;
-            position: relative;
+            display: flex;
+            align-items: flex-start;
         }
-        section li::before {
-            content: "▹";
+
+        .indent-list.arrow-list li::before {
+            content: "\f0da";
+            /* FontAwesome angle-right */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0.2rem;
+            top: 2px;
+            color: var(--accent-cyan);
+        }
+
+        .number-list {
+            list-style-type: none;
+            counter-reset: my-counter;
+            padding-left: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .number-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .number-list li::before {
+            content: counter(my-counter) ".";
+            counter-increment: my-counter;
             position: absolute;
             left: 0;
-            color: var(--accent-cyan);
+            top: 0;
             font-weight: 600;
+            color: var(--accent-purple);
         }
-        
+
         p {
             color: #334155;
             font-weight: 400;
         }
 
+        /* 本文中の一般的なリンク装飾 */
+        main a:not(.portfolio-item a) {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        main a:not(.portfolio-item a)::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent-cyan);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+            border-radius: 2px;
+        }
+
+        main a:not(.portfolio-item a):hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        main a:not(.portfolio-item a):hover {
+            color: var(--accent-purple);
+        }
+
+        /* 連絡先リンク */
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 0.5rem;
+        }
+
+        .contact-list li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-list i {
+            width: 25px;
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+        }
+
+        .contact-list a {
+            color: var(--accent-purple) !important;
+        }
+
+        .contact-list a::after {
+            background-color: var(--accent-purple) !important;
+        }
+
+        .contact-list a:hover {
+            color: #9333ea !important;
+        }
+
+        /* トップに戻るボタン */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #back-to-top:hover {
+            transform: translateY(-3px);
+            background: var(--accent-cyan);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4);
+        }
+
+        /* ポートフォリオ */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.02);
+        }
+
+        .portfolio-item img {
+            cursor: pointer;
+        }
+
+        .portfolio-caption {
+            display: none;
+            /* グリッド一覧では非表示にする */
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.75);
+            /* 黒・ダークグレー系背景 */
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            color: rgba(148, 163, 184, 0.7);
+            /* 暗めのグレー文字で目立たなくする */
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            pointer-events: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transition-delay: 0.1s;
+            /* 画像展開より僅かに遅れて表示させるフワッと感 */
+        }
+
+        .lightbox.show .lightbox-caption {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ライトボックス */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .lightbox.show img {
+            transform: scale(1);
+        }
+
         /* レスポンシブ */
-        @media (max-width: 800px) {
-            body { flex-direction: column; }
-            nav { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--glass-border); padding: 1.5rem; box-sizing: border-box;}
-            main { margin-left: 0; padding: 2rem 1.5rem; width: 100%; box-sizing: border-box;}
-            section { padding: 1.5rem; }
+        @media (max-width: 850px) {
+            body {
+                flex-direction: column;
+            }
+
+            .indent-list li {
+                flex-direction: column;
+            }
+
+            .date {
+                margin-bottom: 4px;
+                width: auto;
+            }
+
+            nav {
+                width: 100%;
+                height: auto;
+                position: static;
+                border-right: none;
+                border-bottom: 1px solid var(--glass-border);
+                padding: 1.5rem;
+                box-sizing: border-box;
+            }
+
+            nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            nav ul li {
+                margin-bottom: 0;
+                margin-right: 1rem;
+            }
+
+            nav ul li a::before {
+                display: none;
+            }
+
+            /* スマホ時は左ライン非表示 */
+            main {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            #back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<div class="quantum-bg"></div>
+    <div class="quantum-bg"></div>
 
-<nav>
-    <div class="lang-switch">
-        <a href="index.html">日本語</a> | <strong>English</strong>
+    <nav>
+        <a href="index.html" class="lang-switch-container" title="Switch to Japanese">
+            <span class="lang-switch-btn">JP</span>
+            <span class="lang-switch-btn active">EN</span>
+        </a>
+        <h1>Shunsuke Ota</h1>
+        <p>Assistant Professor<br>Department of Electrical and Electronic Engineering,<br>School of
+            Engineering,<br>Institute of Science Tokyo</p>
+        <ul>
+            <li><a href="#profile" class="active"><i class="fas fa-id-card"></i>Profile</a></li>
+            <li><a href="#news"><i class="fas fa-bell"></i>News</a></li>
+            <li><a href="#career"><i class="fas fa-building-columns"></i>Career</a></li>
+            <li><a href="#publications"><i class="fas fa-book-open"></i>Publications</a></li>
+            <li><a href="#portfolio"><i class="fas fa-camera-retro"></i>Portfolio</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="profile">
+            <h2><i class="fas fa-id-badge"></i>Profile</h2>
+            <div style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-cyan); padding-left: 1rem;">
+                <p style="margin: 0; font-size: 1.2rem; font-weight: 700; color: var(--text-color);">Shunsuke Ota</p>
+                <p style="margin: 0.2rem 0 0 0; font-weight: 500;">Assistant Professor, Kodera Lab, Institute of Science
+                    Tokyo</p>
+            </div>
+            <p>I am engaged in research on fundamental technologies for quantum bits and quantum computers, particularly
+                using semiconductor quantum dots.</p>
+            <div style="margin-top: 1.5rem;">
+                <strong style="color: #475569;"><i class="fas fa-link" style="margin-right: 5px;"></i>Links &
+                    Contact</strong>
+                <ul class="contact-list">
+                    <li><i class="fas fa-envelope"></i> <a
+                            href="mailto:ota.s.09e6@m.isct.ac.jp">ota.s.09e6@m.isct.ac.jp</a></li>
+                    <li><i class="fab fa-orcid"></i> <a href="https://orcid.org/0000-0001-9884-0443"
+                            target="_blank">ORCiD</a></li>
+                    <li><i class="fas fa-graduation-cap"></i> <a
+                            href="https://scholar.google.co.jp/citations?user=gkm5IYAAAAAJ&hl=en" target="_blank">Google
+                            Scholar</a></li>
+                    <li><i class="fas fa-search"></i> <a href="https://researchmap.jp/shunsuke_ota?lang=en"
+                            target="_blank">researchmap</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="news">
+            <h2><i class="fas fa-bullhorn"></i>News</h2>
+            <ul class="indent-list arrow-list">
+                <li><span class="date">2026-04-01</span> Appointed as an Assistant Professor.</li>
+            </ul>
+        </section>
+
+        <section id="career">
+            <h2><i class="fas fa-building-columns"></i>Career</h2>
+            <ul class="indent-list arrow-list">
+                <li><span class="date">04/2026 – Present</span> Institute of Science Tokyo, Assistant Professor</li>
+                <li><span class="date">01/2025 – 03/2026</span> Institute of Science Tokyo, Specially Appointed
+                    Assistant Professor</li>
+                <li><span class="date">04/2024 – 12/2024</span> Institute of Science Tokyo (formerly Tokyo Institute of
+                    Technology), Researcher</li>
+                <li><span class="date">03/2024</span> Tokyo Institute of Technology, Ph.D. in Engineering</li>
+                <li><span class="date">09/2022 – 12/2022</span> University of Twente, EEMCS, NanoElectronics Group,
+                    Guest researcher</li>
+                <li><span class="date">01/2022 – 02/2022</span> Institute Néel QuantECA, CNRS, France, Visiting
+                    scientist</li>
+                <li><span class="date">03/2021</span> Tokyo Institute of Technology, M.Eng.</li>
+                <li><span class="date">04/2019 – 03/2024</span> National Institute of Advanced Industrial Science and
+                    Technology (AIST), Research Assistant</li>
+                <li><span class="date">03/2019</span> Tokyo Institute of Technology, B.Eng.</li>
+            </ul>
+        </section>
+
+        <section id="publications">
+            <h2><i class="fas fa-book-open"></i>Publications</h2>
+            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+                    class="fas fa-award" style="color:var(--accent-cyan); margin-right:8px;"></i>Thesis</h3>
+            <ul class="indent-list arrow-list">
+                <li>Surface Acoustic Wave-Driven Single-Electron Transport for Quantum Information
+                    Processing（Tokyo Institute of Technology、2024）</li>
+            </ul>
+
+            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+                    class="fas fa-file-lines" style="color:var(--accent-cyan); margin-right:8px;"></i>Journal articles
+            </h3>
+            <ul class="number-list">
+                <li>R. Mizokuchi, R. Wada, R. Matsuoka, <u>S. Ota</u>, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H.
+                    Mizuno,
+                    T. Kodera. Improved readout accuracy of a silicon spin qubit via log-likelihood ratio, <em>Japanese
+                        Journal of Applied Physics</em>, <strong>65</strong>, 02SP03 (2026). (DOI:
+                    10.35848/1347-4065/ae2d60)</li>
+                <li>D. Zhang†, N. Negami†, R. Mizokuchi†, <u>S. Ota</u>, R. Wada, T. Kodera. Multi-bit state
+                    discrimination
+                    using machine learning for IQ-encoded spin-qubit readout, <em>Japanese Journal of Applied
+                        Physics</em>, <strong>65</strong>, 05SP22 (2026). (†: contributed equally to this work)</li>
+                <li>K. Fujiwara, <u>S. Ota</u>, T. Kodera, Y. Okazaki, N.-H. Kaneko, N. Jiang, Y. Niimi, S. Takada.
+                    Generation
+                    of a single-cycle surface acoustic wave pulse on LiNbO3 for application to thin-film materials,
+                    <em>Appl. Phys. Lett.</em> <strong>127</strong>, 022406 (2025).
+                </li>
+                <li><u>S. Ota</u>, Y. Okazaki, S. Nakamura, T. Oe, H. Sellier, C. Bäuerle, N.-H. Kaneko, T. Kodera, S.
+                    Takada.
+                    Suppression of electromagnetic crosstalk by differential excitation for SAW generation, <em>Appl.
+                        Phys. Express</em> <strong>17</strong>, 022002-1-6 (2024).</li>
+                <li><u>S. Ota</u>, J. Wang, H. Edlbauer, Y. Okazaki, S. Nakamura, T. Oe, A. Ludwig, A. D. Wieck, H.
+                    Sellier, C.
+                    Bäuerle, N.-H. Kaneko, T. Kodera, S. Takada. On-demand single-electron source via single-cycle
+                    acoustic pulses, <em>Phys. Rev. Applied</em> <strong>21</strong>, 024034-1-8 (2024).</li>
+                <li>J. Wang, H. Edlbauer, A. Richard, <u>S. Ota</u>, W. Park, J. Shim, A. Ludwig, A. D. Wieck, H.-S.
+                    Sim, M.
+                    Urdampilleta, T. Meunier, T. Kodera, N.-H. Kaneko, H. Sellier, X. Waintal, S. Takada & C. Bäuerle.
+                    Coulomb-mediated antibunching of an electron pair surfing on sound, <em>Nature Nanotechnology</em>
+                    <strong>18</strong>, 721 (2023).
+                </li>
+                <li>J. Wang*, <u>S. Ota</u>*, H. Edlbauer*, B. Jadot, P.-A. Mortemousque, A. Richard, Y. Okazaki, S.
+                    Nakamura,
+                    A. Ludwig, A. D. Wieck, M. Urdampilleta, T. Meunier, T. Kodera, N.-H. Kaneko, S. Takada, C. Bäuerle.
+                    Generation of a Single-Cycle Acoustic Pulse: A Scalable Solution for Transport in Single-Electron
+                    Circuits, <em>Phys. Rev. X</em> <strong>12</strong>, 031035 (2022). (*: contributed equally to this
+                    work)</li>
+                <li>H. Edlbauer*, J. Wang*, <u>S. Ota</u>*, A. Richard, B. Jadot, P.-A. Mortemousque, Y. Okazaki, S.
+                    Nakamura,
+                    T. Kodera, N.-H. Kaneko, A. Ludwig, A. D. Wieck, M. Urdampilleta, T. Meunier, C. Bäuerle, S. Takada.
+                    In-flight distribution of an electron within a surface acoustic wave, <em>Appl. Phys. Lett.</em>
+                    <strong>119</strong>, 114004 (2021). (*: contributed equally to this work)
+                </li>
+            </ul>
+            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+                    class="fas fa-file-lines" style="color:var(--accent-cyan); margin-right:8px;"></i>International
+                Conference</h3>
+            <ul class="number-list">
+                <li>R. Mizokuchi, R. Wada, R. Matsuoka, <u>S. Ota</u>, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H.
+                    Mizuno,
+                    T. Kodera. Improved readout accuracy of a silicon spin qubit via log-likelihood ratio, <em>Japanese
+                        Journal of Applied Physics</em>, <strong>65</strong>, 02SP03 (2026). (DOI:
+                    10.35848/1347-4065/ae2d60)</li>
+                <li>D. Zhang†, N. Negami†, R. Mizokuchi†, <u>S. Ota</u>, R. Wada, T. Kodera. Multi-bit state
+                    discrimination
+                    using machine learning for IQ-encoded spin-qubit readout, <em>Japanese Journal of Applied
+                        Physics</em>, <strong>65</strong>, 05SP22 (2026). (†: contributed equally to this work)</li>
+                <li>K. Fujiwara, <u>S. Ota</u>, T. Kodera, Y. Okazaki, N.-H. Kaneko, N. Jiang, Y. Niimi, S. Takada.
+                    Generation
+                    of a single-cycle surface acoustic wave pulse on LiNbO3 for application to thin-film materials,
+                    <em>Appl. Phys. Lett.</em> <strong>127</strong>, 022406 (2025).
+                </li>
+                <li><u>S. Ota</u>, Y. Okazaki, S. Nakamura, T. Oe, H. Sellier, C. Bäuerle, N.-H. Kaneko, T. Kodera, S.
+                    Takada.
+                    Suppression of electromagnetic crosstalk by differential excitation for SAW generation, <em>Appl.
+                        Phys. Express</em> <strong>17</strong>, 022002-1-6 (2024).</li>
+                <li><u>S. Ota</u>, J. Wang, H. Edlbauer, Y. Okazaki, S. Nakamura, T. Oe, A. Ludwig, A. D. Wieck, H.
+                    Sellier, C.
+                    Bäuerle, N.-H. Kaneko, T. Kodera, S. Takada. On-demand single-electron source via single-cycle
+                    acoustic pulses, <em>Phys. Rev. Applied</em> <strong>21</strong>, 024034-1-8 (2024).</li>
+                <li>J. Wang, H. Edlbauer, A. Richard, <u>S. Ota</u>, W. Park, J. Shim, A. Ludwig, A. D. Wieck, H.-S.
+                    Sim, M.
+                    Urdampilleta, T. Meunier, T. Kodera, N.-H. Kaneko, H. Sellier, X. Waintal, S. Takada & C. Bäuerle.
+                    Coulomb-mediated antibunching of an electron pair surfing on sound, <em>Nature Nanotechnology</em>
+                    <strong>18</strong>, 721 (2023).
+                </li>
+                <li>J. Wang*, <u>S. Ota</u>*, H. Edlbauer*, B. Jadot, P.-A. Mortemousque, A. Richard, Y. Okazaki, S.
+                    Nakamura,
+                    A. Ludwig, A. D. Wieck, M. Urdampilleta, T. Meunier, T. Kodera, N.-H. Kaneko, S. Takada, C. Bäuerle.
+                    Generation of a Single-Cycle Acoustic Pulse: A Scalable Solution for Transport in Single-Electron
+                    Circuits, <em>Phys. Rev. X</em> <strong>12</strong>, 031035 (2022). (*: contributed equally to this
+                    work)</li>
+                <li>H. Edlbauer*, J. Wang*, <u>S. Ota</u>*, A. Richard, B. Jadot, P.-A. Mortemousque, Y. Okazaki, S.
+                    Nakamura,
+                    T. Kodera, N.-H. Kaneko, A. Ludwig, A. D. Wieck, M. Urdampilleta, T. Meunier, C. Bäuerle, S. Takada.
+                    In-flight distribution of an electron within a surface acoustic wave, <em>Appl. Phys. Lett.</em>
+                    <strong>119</strong>, 114004 (2021). (*: contributed equally to this work)
+                </li>
+            </ul>
+
+            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+                    class="fas fa-globe" style="color:var(--accent-cyan); margin-right:8px;"></i>International
+                Conferences</h3>
+            <ul class="number-list">
+                <li><u>S. Ota</u>, T. Fukuda, T. Toshimitsu, R. Mizokuchi, T. Kodera. Cryogenic Characterization of
+                    Commercial
+                    Heterojunction Bipolar Transistors as Current Amplifiers Toward Semiconductor Spin Qubit Readout,
+                    <em>1st International Workshop on Industrial-grade Ge Quantum Technology</em>, Dec. 2025.
+                </li>
+                <li>R. Mizokuchi, R. Wada, R. Matsuoka, <u>S. Ota</u>, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H.
+                    Mizuno,
+                    T. Kodera. Log-Likelihood Ratio for Improving Accuracy in Silicon Spin Qubit Readout, <em>2nd
+                        International Workshop on Quantum Information Engineering (QIE2025)</em>, Oct. 2025.</li>
+                <li>N. Negami, R. Mizokuchi, <u>S. Ota</u>, R. Wada, Z. Duanlian, T. Kodera. Multi-Bit State
+                    Classification via
+                    Machine Learning in IQ-Encoded Spin Qubit Readout, <em>2025 International Conference on Solid
+                        Devices and Materials (SSDM2025)</em>, Sept. 2025.</li>
+                <li>R. Mizokuchi, R. Wada, R. Matsuoka, <u>S. Ota</u>, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H.
+                    Mizuno,
+                    T. Kodera. Improved readout accuracy of a silicon spin qubit via maximum likelihood estimation,
+                    <em>2025 International Conference on Solid Devices and Materials (SSDM2025)</em>, Sept. 2025.
+                </li>
+                <li><u>S. Ota</u>, S. I. Ibad, C. Kondo, R. Mizokuchi, R. Wada, R. Matsuoka, I. Yanagi, T. Mine, R.
+                    Tsuchiya,
+                    D. Hisamoto, H. Mizuno, T. Kodera. Comparative evaluation of electron- and hole-properties in
+                    silicon quantum dots, <em>The International Symposium on Quantum Science, Technology and Innovation
+                        2025</em>, July 2025.</li>
+                <li><u>S. Ota</u>, J. Wang, H. Edlbauer, Y. Okazaki, S. Nakamura, T. Oe, A. Ludwig, A.D. Wieck, T.
+                    Kodera, C.
+                    Bäuerle, S. Takada, N.-H. Kaneko. Crosstalk Effect for Acousto-Electric Quantized Current, <em>2023
+                        International Conference on Solid State Devices and Materials (SSDM2023)</em>, B-2-04, Nagoya,
+                    Japan, September 6 (2023).</li>
+                <li><u>S. Ota</u>, J. Wang, H. Edlbauer, Y. Okazaki, S. Nakamura, A. Ludwig, A.D. Wieck, T. Kodera, C.
+                    Bäuerle,
+                    S. Takada, N.-H. Kaneko. On-demand Single-Electron Source with Acousto-Electric Pulses, <em>25th
+                        International Conference on Electronic Properties of Two-Dimensional Systems/21th International
+                        Conference on Modulated Semiconductor Structures (EP2DS-25/MSS-21 Joint Conference)</em>, 10A-2,
+                    Grenoble, France, July 13 (2023).</li>
+                <li><u>S. Ota</u>, J. Wang, H. Edlbauer, A. Richard, B. Jadot, P.-A. Mortemousque, Y. Okazaki, S.
+                    Nakamura, T.
+                    Kodera, N.-H. Kaneko, A. Ludwig, A.D. Wieck, M. Urdampilleta, T. Meunier, S. Takada, C. Bäuerle.
+                    Single-Electron Transport with Acousto-Electric Chirp Pulses, <em>24th International Conference on
+                        Electronic Properties of Two-Dimensional Systems/20th International Conference on Modulated
+                        Semiconductor Structures (EP2DS-24/MSS-20 Joint Conference)</em>, M-4-02, ALL-VIRTUAL
+                    Conference, November 2 (2021).</li>
+                <li><u>S. Ota</u>, S. Hiraoka, R. Mizokuchi, T. Kodera. Observation of bipolar Pauli spin blockade and
+                    the
+                    few-electron regime in a silicon linearly triple quantum dot, <em>Topical Conference on Quantum
+                        Computing 2019 (TCQC2019)</em>, Kyoto, Japan, December 17-18 (2019).</li>
+                <li><u>S. Ota</u>, S. Hiraoka, R. Matsuoka, R. Mizokuchi, T. Kodera. Bipolar Pauli spin blockade in a
+                    silicon
+                    linearly coupled triple quantum dot, <em>2019 International Conference on Solid State Devices and
+                        Materials (SSDM2019)</em>, E-1-03, Nagoya, Japan, September 3 (2019).</li>
+            </ul>
+
+            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+                    class="fas fa-microphone-lines" style="color:var(--accent-cyan); margin-right:8px;"></i>Invited
+                Talks</h3>
+            <ul class="number-list">
+                <li><u>S. Ota</u>. Fundamental Technologies for Scalable Semiconductor Quantum Computing, <em>Leti
+                        Science Seminar</em>, CEA, Grenoble, France, March 6 (2026).</li>
+            </ul>
+
+        </section>
+
+        <section id="portfolio">
+            <h2><i class="fas fa-camera-retro"></i>Portfolio</h2>
+            <p>Images and photos I designed or took.</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="images/chip.png" alt="デバイスチップ画像"
+                        style="width: 100%; height: 180px; object-fit: cover; display: block;">
+                    <div class="portfolio-caption">Semiconductor chip conceptual diagram</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="images/saw.png" alt="表面弾性波デバイス"
+                        style="width: 100%; height: 180px; object-fit: cover; display: block;">
+                    <div class="portfolio-caption">Surface acoustic wave device conceptual diagram</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="images/Thái Văn Lung Quận 1.png" alt="ホーチミン"
+                        style="width: 100%; height: 180px; object-fit: cover; display: block;">
+                    <div class="portfolio-caption">Thái Văn Lung Quận 1</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="images/マルセイユ.jpg" alt="マルセイユ"
+                        style="width: 100%; height: 180px; object-fit: cover; display: block;">
+                    <div class="portfolio-caption">Marseille</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="images/井の頭公園 Tokyo.jpg" alt="Inokashira Park"
+                        style="width: 100%; height: 180px; object-fit: cover; display: block;">
+                    <div class="portfolio-caption">Inokashira Park</div>
+                </div>
+            </div>
+        </section>
+
+        <div
+            style="text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(15, 23, 42, 0.05);">
+            <p style="color: #94a3b8; font-size: 0.85rem;">&copy; Shunsuke Ota.</p>
+        </div>
+    </main>
+
+    <!-- Back to top button -->
+    <a href="#" id="back-to-top" title="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <img src="" alt="Enlarged Image">
+        <div class="lightbox-caption"></div>
     </div>
 
-    <h1>Shunsuke Ota</h1>
-    <p>Assistant Professor<br>
-       Department of Electrical and Electronic Engineering,<br>
-       School of Engineering,<br>
-       Institute of Science Tokyo</p>
-    <ul>
-        <li><a href="#profile">Profile</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#research">Research</a></li>
-        <li><a href="#publications">Publications</a></li>
-    </ul>
-</nav>
+    <script>
+        // スクロール検知でトップに戻るボタンを表示・非表示
+        window.addEventListener('scroll', function () {
+            var backToTop = document.getElementById('back-to-top');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
 
-<main>
-    <section id="profile">
-        <h2>Profile</h2>
-        <p>I am an Assistant Professor at the Institute of Science Tokyo. My research primarily focuses on the fundamental technologies of quantum bits (qubits) and quantum computers, with a specific emphasis on semiconductor quantum dots.</p>
-    </section>
+        // スムーズスクロール
+        document.getElementById('back-to-top').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
 
-    <section id="news">
-        <h2>News</h2>
-        <ul>
-            <li><span class="date">2026-04-01</span> Appointed as an Assistant Professor.</li>
-        </ul>
-    </section>
+        // スクロールスパイ（アクティブメニューのハイライト）
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('main section');
+            const navLinks = document.querySelectorAll('nav ul li a');
 
-    <section id="research">
-        <h2>Research</h2>
-        <p>My current research investigates ~.</p>
-    </section>
+            // 画面中央付近を監視の基準とする設定
+            const observerOptions = {
+                root: null,
+                rootMargin: '-30% 0px -50% 0px',
+                threshold: 0
+            };
 
-    <section id="publications">
-        <h2>Publications</h2>
-        <p>(Publication list will be updated here.)</p>
-    </section>
-</main>
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const activeId = entry.target.getAttribute('id');
 
+                        // まずすべてのリンクから active を外す
+                        navLinks.forEach(link => link.classList.remove('active'));
+
+                        // 今見えているセクションのリンクに active を付ける
+                        const activeLink = document.querySelector(`nav ul li a[href="#${activeId}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- ポートフォリオのライトボックス（画像拡大）機能 ---
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = lightbox.querySelector('img');
+            const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+            const portfolioImages = document.querySelectorAll('.portfolio-item img');
+
+            portfolioImages.forEach(img => {
+                img.addEventListener('click', function (e) {
+                    e.stopPropagation(); // 他のクリックイベントを防ぐ
+                    lightboxImg.src = this.src;
+
+                    // クリックした画像の兄弟要素（.portfolio-caption）からテキストを取得
+                    const captionEl = this.nextElementSibling;
+                    if (captionEl && captionEl.classList.contains('portfolio-caption')) {
+                        lightboxCaption.textContent = captionEl.textContent;
+                    } else {
+                        lightboxCaption.textContent = '';
+                    }
+
+                    lightbox.classList.add('show');
+                });
+            });
+
+            // どこかをクリックしたら閉じる（オーバーレイなど）
+            document.addEventListener('click', function (e) {
+                if (lightbox.classList.contains('show')) {
+                    lightbox.classList.remove('show');
+                }
+            });
+
+            // ライトボックス内の画像からカーソルが離れても閉じる
+            lightboxImg.addEventListener('mouseleave', function () {
+                if (lightbox.classList.contains('show')) {
+                    lightbox.classList.remove('show');
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>

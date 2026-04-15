@@ -166,26 +166,41 @@
             height: 100%;
         }
 
-        .lang-switch {
+        .lang-switch-container {
+            display: inline-flex;
+            background: rgba(2, 132, 199, 0.08);
+            /* accent-cyan-light */
+            border-radius: 20px;
+            padding: 4px;
+            position: relative;
             margin-bottom: 1.5rem;
+            align-items: center;
+            cursor: pointer;
+            text-decoration: none !important;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .lang-switch-btn {
+            position: relative;
+            z-index: 1;
+            padding: 4px 16px;
             font-size: 0.85rem;
-            color: #64748b;
+            font-weight: 600;
+            text-decoration: none !important;
+            color: #64748b !important;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            pointer-events: none;
         }
 
-        .lang-switch strong {
-            color: var(--text-color);
-            font-weight: 500;
+        .lang-switch-btn.active {
+            color: var(--accent-cyan) !important;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15);
         }
 
-        .lang-switch a {
-            color: var(--accent-purple);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .lang-switch a:hover {
-            color: #9333ea;
-            text-decoration: underline;
+        .lang-switch-container:hover .lang-switch-btn:not(.active) {
+            color: var(--text-color) !important;
         }
 
         /* メインコンテンツ */
@@ -237,7 +252,9 @@
         .date {
             font-feature-settings: "tnum";
             color: var(--accent-purple);
-            width: 100px;
+            flex-shrink: 0;
+            width: 170px;
+            margin-right: 15px;
             display: inline-block;
             font-size: 0.9rem;
             letter-spacing: 0.05em;
@@ -256,6 +273,8 @@
             padding-left: 1.8rem;
             margin-bottom: 0.8rem;
             color: #334155;
+            display: flex;
+            align-items: flex-start;
         }
 
         .indent-list.arrow-list li::before {
@@ -265,6 +284,7 @@
             font-weight: 900;
             position: absolute;
             left: 0.2rem;
+            top: 2px;
             color: var(--accent-cyan);
         }
 
@@ -298,6 +318,38 @@
             font-weight: 400;
         }
 
+        /* 本文中の一般的なリンク装飾 */
+        main a:not(.portfolio-item a) {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        main a:not(.portfolio-item a)::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent-cyan);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+            border-radius: 2px;
+        }
+
+        main a:not(.portfolio-item a):hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        main a:not(.portfolio-item a):hover {
+            color: var(--accent-purple);
+        }
+
         /* 連絡先リンク */
         .contact-list {
             list-style: none;
@@ -318,15 +370,15 @@
         }
 
         .contact-list a {
-            color: var(--accent-purple);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
+            color: var(--accent-purple) !important;
+        }
+
+        .contact-list a::after {
+            background-color: var(--accent-purple) !important;
         }
 
         .contact-list a:hover {
-            color: #9333ea;
-            text-decoration: underline;
+            color: #9333ea !important;
         }
 
         /* トップに戻るボタン */
@@ -375,6 +427,7 @@
         }
 
         .portfolio-item {
+            position: relative;
             border-radius: 8px;
             overflow: hidden;
             border: 1px solid rgba(0, 0, 0, 0.05);
@@ -387,10 +440,95 @@
             transform: scale(1.02);
         }
 
+        .portfolio-item img {
+            cursor: pointer;
+        }
+
+        .portfolio-caption {
+            display: none;
+            /* グリッド一覧では非表示にする */
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.75);
+            /* 黒・ダークグレー系背景 */
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            color: rgba(148, 163, 184, 0.7);
+            /* 暗めのグレー文字で目立たなくする */
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            pointer-events: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transition-delay: 0.1s;
+            /* 画像展開より僅かに遅れて表示させるフワッと感 */
+        }
+
+        .lightbox.show .lightbox-caption {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ライトボックス */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .lightbox.show img {
+            transform: scale(1);
+        }
+
         /* レスポンシブ */
         @media (max-width: 850px) {
             body {
                 flex-direction: column;
+            }
+
+            .indent-list li {
+                flex-direction: column;
+            }
+
+            .date {
+                margin-bottom: 4px;
+                width: auto;
             }
 
             nav {
@@ -446,9 +584,10 @@
     <div class="quantum-bg"></div>
 
     <nav>
-        <div class="lang-switch">
-            <strong>日本語</strong> | <a href="index-en.html">English</a>
-        </div>
+        <a href="index-en.html" class="lang-switch-container" title="Switch to English">
+            <span class="lang-switch-btn active">JP</span>
+            <span class="lang-switch-btn">EN</span>
+        </a>
         <h1>太田 俊輔</h1>
         <p>Shunsuke Ota<br>東京科学大学 工学院 電気電子系 助教</p>
         <ul>
@@ -491,26 +630,26 @@
         <section id="news">
             <h2><i class="fas fa-bullhorn"></i>ニュース</h2>
             <ul class="indent-list arrow-list">
-                <li><span class="date">2026-04-01</span> 助教として着任しました。</li>
+                <li><span class="date">2026-04-01</span> 東京科学大学工学院電気電子系に助教として着任しました。</li>
             </ul>
         </section>
 
         <section id="career">
             <h2><i class="fas fa-building-columns"></i>経歴・研究歴</h2>
             <ul class="indent-list arrow-list">
-                <li><span class="date">2026年4月 – 現在</span> 東京科学大学 助教</li>
-                <li><span class="date">2025年1月 – 2026年3月</span> 東京科学大学 特任助教</li>
-                <li><span class="date">2024年4月 – 2024年12月</span> 東京科学大学（旧東京工業大学） 研究員</li>
-                <li><span class="date">2024年3月</span> 東京工業大学 工学部 電気電子系 博士後期課程 修了</li>
-                <li><span class="date">2022年9月 – 2022年12月</span> トゥエンテ大学 (University of Twente, EEMCS, NanoElectronics
+                <li><span class="date">2026/4 – 現在</span> 東京科学大学 助教</li>
+                <li><span class="date">2025/1 – 2026/3</span> 東京科学大学 特任助教</li>
+                <li><span class="date">2024/4 – 2024/12</span> 東京科学大学（旧東京工業大学） 研究員</li>
+                <li><span class="date">2024/3</span> 東京工業大学 工学部 電気電子系 博士後期課程 修了</li>
+                <li><span class="date">2022/9 – 2022/12</span> トゥエンテ大学 (University of Twente, EEMCS, NanoElectronics
                     Group) Guest researcher</li>
-                <li><span class="date">2022年1月 – 2022年2月</span> フランス国立科学研究センター ネール研究所 (Institute Néel QuantECA, CNRS,
+                <li><span class="date">2022/1 – 2022/2</span> フランス国立科学研究センター ネール研究所 (Institute Néel QuantECA, CNRS,
                     France) Visiting scientist</li>
-                <li><span class="date">2021年3月</span> 東京工業大学 工学部 電気電子系 修士課程 修了</li>
-                <li><span class="date">2019年4月 – 2024年3月</span> 産業技術総合研究所 計量標準総合センター 物理計測標準研究部門 量子電気標準研究グループ リサーチアシスタント
+                <li><span class="date">2021/3</span> 東京工業大学 工学部 電気電子系 修士課程 修了</li>
+                <li><span class="date">2019/4 – 2024/3</span> 産業技術総合研究所 計量標準総合センター 物理計測標準研究部門 量子電気標準研究グループ リサーチアシスタント
                 </li>
-                <li><span class="date">2019年3月</span> 東京工業大学 工学部 電気電子工学科 卒業</li>
-                <li><span class="date">2014年3月</span> 私立海城高等学校 卒業</li>
+                <li><span class="date">2019/3</span> 東京工業大学 工学部 電気電子工学科 卒業</li>
+                <li><span class="date">2014/3</span> 私立海城高等学校 卒業</li>
             </ul>
         </section>
 
@@ -529,75 +668,98 @@
             <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
                     class="fas fa-file-lines" style="color:var(--accent-cyan); margin-right:8px;"></i>学術雑誌等掲載論文</h3>
             <ul class="number-list">
-                <li>R. Mizokuchi, R. Wada, R. Matsuoka, S. Ota, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H. Mizuno,
+                <li>R. Mizokuchi, R. Wada, R. Matsuoka, <u>S. Ota</u>, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H.
+                    Mizuno,
                     T. Kodera. Improved readout accuracy of a silicon spin qubit via log-likelihood ratio, <em>Japanese
                         Journal of Applied Physics</em>, <strong>65</strong>, 02SP03 (2026). (DOI:
                     10.35848/1347-4065/ae2d60)</li>
-                <li>D. Zhang†, N. Negami†, R. Mizokuchi†, S. Ota, R. Wada, T. Kodera. Multi-bit state discrimination
+                <li>D. Zhang†, N. Negami†, R. Mizokuchi†, <u>S. Ota</u>, R. Wada, T. Kodera. Multi-bit state
+                    discrimination
                     using machine learning for IQ-encoded spin-qubit readout, <em>Japanese Journal of Applied
                         Physics</em>, <strong>65</strong>, 05SP22 (2026). (†: contributed equally to this work)</li>
-                <li>K. Fujiwara, S. Ota, T. Kodera, Y. Okazaki, N.-H. Kaneko, N. Jiang, Y. Niimi, S. Takada. Generation
+                <li>K. Fujiwara, <u>S. Ota</u>, T. Kodera, Y. Okazaki, N.-H. Kaneko, N. Jiang, Y. Niimi, S. Takada.
+                    Generation
                     of a single-cycle surface acoustic wave pulse on LiNbO3 for application to thin-film materials,
-                    <em>Appl. Phys. Lett.</em> <strong>127</strong>, 022406 (2025).</li>
-                <li>S. Ota, Y. Okazaki, S. Nakamura, T. Oe, H. Sellier, C. Bäuerle, N.-H. Kaneko, T. Kodera, S. Takada.
+                    <em>Appl. Phys. Lett.</em> <strong>127</strong>, 022406 (2025).
+                </li>
+                <li><u>S. Ota</u>, Y. Okazaki, S. Nakamura, T. Oe, H. Sellier, C. Bäuerle, N.-H. Kaneko, T. Kodera, S.
+                    Takada.
                     Suppression of electromagnetic crosstalk by differential excitation for SAW generation, <em>Appl.
                         Phys. Express</em> <strong>17</strong>, 022002-1-6 (2024).</li>
-                <li>S. Ota, J. Wang, H. Edlbauer, Y. Okazaki, S. Nakamura, T. Oe, A. Ludwig, A. D. Wieck, H. Sellier, C.
+                <li><u>S. Ota</u>, J. Wang, H. Edlbauer, Y. Okazaki, S. Nakamura, T. Oe, A. Ludwig, A. D. Wieck, H.
+                    Sellier, C.
                     Bäuerle, N.-H. Kaneko, T. Kodera, S. Takada. On-demand single-electron source via single-cycle
                     acoustic pulses, <em>Phys. Rev. Applied</em> <strong>21</strong>, 024034-1-8 (2024).</li>
-                <li>J. Wang, H. Edlbauer, A. Richard, S. Ota, W. Park, J. Shim, A. Ludwig, A. D. Wieck, H.-S. Sim, M.
+                <li>J. Wang, H. Edlbauer, A. Richard, <u>S. Ota</u>, W. Park, J. Shim, A. Ludwig, A. D. Wieck, H.-S.
+                    Sim, M.
                     Urdampilleta, T. Meunier, T. Kodera, N.-H. Kaneko, H. Sellier, X. Waintal, S. Takada & C. Bäuerle.
                     Coulomb-mediated antibunching of an electron pair surfing on sound, <em>Nature Nanotechnology</em>
-                    <strong>18</strong>, 721 (2023).</li>
-                <li>J. Wang*, S. Ota*, H. Edlbauer*, B. Jadot, P.-A. Mortemousque, A. Richard, Y. Okazaki, S. Nakamura,
+                    <strong>18</strong>, 721 (2023).
+                </li>
+                <li>J. Wang*, <u>S. Ota</u>*, H. Edlbauer*, B. Jadot, P.-A. Mortemousque, A. Richard, Y. Okazaki, S.
+                    Nakamura,
                     A. Ludwig, A. D. Wieck, M. Urdampilleta, T. Meunier, T. Kodera, N.-H. Kaneko, S. Takada, C. Bäuerle.
                     Generation of a Single-Cycle Acoustic Pulse: A Scalable Solution for Transport in Single-Electron
                     Circuits, <em>Phys. Rev. X</em> <strong>12</strong>, 031035 (2022). (*: contributed equally to this
                     work)</li>
-                <li>H. Edlbauer*, J. Wang*, S. Ota*, A. Richard, B. Jadot, P.-A. Mortemousque, Y. Okazaki, S. Nakamura,
+                <li>H. Edlbauer*, J. Wang*, <u>S. Ota</u>*, A. Richard, B. Jadot, P.-A. Mortemousque, Y. Okazaki, S.
+                    Nakamura,
                     T. Kodera, N.-H. Kaneko, A. Ludwig, A. D. Wieck, M. Urdampilleta, T. Meunier, C. Bäuerle, S. Takada.
                     In-flight distribution of an electron within a surface acoustic wave, <em>Appl. Phys. Lett.</em>
-                    <strong>119</strong>, 114004 (2021). (*: contributed equally to this work)</li>
+                    <strong>119</strong>, 114004 (2021). (*: contributed equally to this work)
+                </li>
             </ul>
 
             <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
                     class="fas fa-globe" style="color:var(--accent-cyan); margin-right:8px;"></i>国際学会発表論文</h3>
             <ul class="number-list">
-                <li>S. Ota, T. Fukuda, T. Toshimitsu, R. Mizokuchi, T. Kodera. Cryogenic Characterization of Commercial
+                <li><u>S. Ota</u>, T. Fukuda, T. Toshimitsu, R. Mizokuchi, T. Kodera. Cryogenic Characterization of
+                    Commercial
                     Heterojunction Bipolar Transistors as Current Amplifiers Toward Semiconductor Spin Qubit Readout,
-                    <em>1st International Workshop on Industrial-grade Ge Quantum Technology</em>, Dec. 2025.</li>
-                <li>R. Mizokuchi, R. Wada, R. Matsuoka, S. Ota, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H. Mizuno,
+                    <em>1st International Workshop on Industrial-grade Ge Quantum Technology</em>, Dec. 2025.
+                </li>
+                <li>R. Mizokuchi, R. Wada, R. Matsuoka, <u>S. Ota</u>, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H.
+                    Mizuno,
                     T. Kodera. Log-Likelihood Ratio for Improving Accuracy in Silicon Spin Qubit Readout, <em>2nd
                         International Workshop on Quantum Information Engineering (QIE2025)</em>, Oct. 2025.</li>
-                <li>N. Negami, R. Mizokuchi, S. Ota, R. Wada, Z. Duanlian, T. Kodera. Multi-Bit State Classification via
+                <li>N. Negami, R. Mizokuchi, <u>S. Ota</u>, R. Wada, Z. Duanlian, T. Kodera. Multi-Bit State
+                    Classification via
                     Machine Learning in IQ-Encoded Spin Qubit Readout, <em>2025 International Conference on Solid
                         Devices and Materials (SSDM2025)</em>, Sept. 2025.</li>
-                <li>R. Mizokuchi, R. Wada, R. Matsuoka, S. Ota, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H. Mizuno,
+                <li>R. Mizokuchi, R. Wada, R. Matsuoka, <u>S. Ota</u>, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H.
+                    Mizuno,
                     T. Kodera. Improved readout accuracy of a silicon spin qubit via maximum likelihood estimation,
-                    <em>2025 International Conference on Solid Devices and Materials (SSDM2025)</em>, Sept. 2025.</li>
-                <li>S. Ota, S. I. Ibad, C. Kondo, R. Mizokuchi, R. Wada, R. Matsuoka, I. Yanagi, T. Mine, R. Tsuchiya,
+                    <em>2025 International Conference on Solid Devices and Materials (SSDM2025)</em>, Sept. 2025.
+                </li>
+                <li><u>S. Ota</u>, S. I. Ibad, C. Kondo, R. Mizokuchi, R. Wada, R. Matsuoka, I. Yanagi, T. Mine, R.
+                    Tsuchiya,
                     D. Hisamoto, H. Mizuno, T. Kodera. Comparative evaluation of electron- and hole-properties in
                     silicon quantum dots, <em>The International Symposium on Quantum Science, Technology and Innovation
                         2025</em>, July 2025.</li>
-                <li>S. Ota, J. Wang, H. Edlbauer, Y. Okazaki, S. Nakamura, T. Oe, A. Ludwig, A.D. Wieck, T. Kodera, C.
+                <li><u>S. Ota</u>, J. Wang, H. Edlbauer, Y. Okazaki, S. Nakamura, T. Oe, A. Ludwig, A.D. Wieck, T.
+                    Kodera, C.
                     Bäuerle, S. Takada, N.-H. Kaneko. Crosstalk Effect for Acousto-Electric Quantized Current, <em>2023
                         International Conference on Solid State Devices and Materials (SSDM2023)</em>, B-2-04, Nagoya,
                     Japan, September 6 (2023).</li>
-                <li>S. Ota, J. Wang, H. Edlbauer, Y. Okazaki, S. Nakamura, A. Ludwig, A.D. Wieck, T. Kodera, C. Bäuerle,
+                <li><u>S. Ota</u>, J. Wang, H. Edlbauer, Y. Okazaki, S. Nakamura, A. Ludwig, A.D. Wieck, T. Kodera, C.
+                    Bäuerle,
                     S. Takada, N.-H. Kaneko. On-demand Single-Electron Source with Acousto-Electric Pulses, <em>25th
                         International Conference on Electronic Properties of Two-Dimensional Systems/21th International
                         Conference on Modulated Semiconductor Structures (EP2DS-25/MSS-21 Joint Conference)</em>, 10A-2,
                     Grenoble, France, July 13 (2023).</li>
-                <li>S. Ota, J. Wang, H. Edlbauer, A. Richard, B. Jadot, P.-A. Mortemousque, Y. Okazaki, S. Nakamura, T.
+                <li><u>S. Ota</u>, J. Wang, H. Edlbauer, A. Richard, B. Jadot, P.-A. Mortemousque, Y. Okazaki, S.
+                    Nakamura, T.
                     Kodera, N.-H. Kaneko, A. Ludwig, A.D. Wieck, M. Urdampilleta, T. Meunier, S. Takada, C. Bäuerle.
                     Single-Electron Transport with Acousto-Electric Chirp Pulses, <em>24th International Conference on
                         Electronic Properties of Two-Dimensional Systems/20th International Conference on Modulated
                         Semiconductor Structures (EP2DS-24/MSS-20 Joint Conference)</em>, M-4-02, ALL-VIRTUAL
                     Conference, November 2 (2021).</li>
-                <li>S. Ota, S. Hiraoka, R. Mizokuchi, T. Kodera. Observation of bipolar Pauli spin blockade and the
+                <li><u>S. Ota</u>, S. Hiraoka, R. Mizokuchi, T. Kodera. Observation of bipolar Pauli spin blockade and
+                    the
                     few-electron regime in a silicon linearly triple quantum dot, <em>Topical Conference on Quantum
                         Computing 2019 (TCQC2019)</em>, Kyoto, Japan, December 17-18 (2019).</li>
-                <li>S. Ota, S. Hiraoka, R. Matsuoka, R. Mizokuchi, T. Kodera. Bipolar Pauli spin blockade in a silicon
+                <li><u>S. Ota</u>, S. Hiraoka, R. Matsuoka, R. Mizokuchi, T. Kodera. Bipolar Pauli spin blockade in a
+                    silicon
                     linearly coupled triple quantum dot, <em>2019 International Conference on Solid State Devices and
                         Materials (SSDM2019)</em>, E-1-03, Nagoya, Japan, September 3 (2019).</li>
             </ul>
@@ -605,17 +767,20 @@
             <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
                     class="fas fa-book" style="color:var(--accent-cyan); margin-right:8px;"></i>総説・解説・著書</h3>
             <ul class="number-list">
-                <li>小寺哲夫, 太田俊輔, 「量子技術イノベーションハンドブック 第3編 量子コンピューティング（ハードウェア編） 第4章 半導体型量子コンピューティング 第1節
-                    発展の歴史、物理的基礎およびデバイス技術」 (2026年3月)</li>
-                <li>高田真太郎, 太田俊輔, 「基礎講座＋αの研究技術：表面弾性波で単一パルスを作る」 <em>応用物理</em>, 92巻 12号 p. 741-745 (2023).</li>
+                <li>小寺哲夫, <u>太田俊輔</u>, 「第3編 量子コンピューティング（ハードウェア編） 第4章 半導体型量子コンピューティング 第1節
+                    発展の歴史、物理的基礎およびデバイス技術」, 量子技術イノベーションハンドブック (2026)</li>
+                <li>高田真太郎, <u>太田俊輔</u>, 「基礎講座＋αの研究技術：表面弾性波で単一パルスを作る」 <em>応用物理</em>, 92巻 12号 p. 741-745 (2023).</li>
             </ul>
 
             <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
                     class="fas fa-microphone-lines" style="color:var(--accent-cyan); margin-right:8px;"></i>招待講演</h3>
             <ul class="number-list">
-                <li>〇太田俊輔, 福田毅, 利光孝文, 溝口来成, 小寺哲夫. [第47回論文奨励賞受賞記念講演] 半導体量子ビット読み出しに向けたディスクリートヘテロ接合バイポーラトランジスタの極低温特性評価,
+                <li><u>S. Ota</u>. Fundamental Technologies for Scalable Semiconductor Quantum Computing, Leti
+                    Science Seminar, CEA, Grenoble, France, March 6 (2026).</li>
+                <li><u>太田俊輔</u>, 福田毅, 利光孝文, 溝口来成, 小寺哲夫. [第47回論文奨励賞受賞記念講演]
+                    半導体量子ビット読み出しに向けたディスクリートヘテロ接合バイポーラトランジスタの極低温特性評価, 18p-S2_202-1, 第73回応用物理学会春季学術講演会,
                     東京科学大学, 東京, 2026年3月18日.</li>
-                <li>〇太田俊輔, 近藤知宏, 土屋龍太, 峰利之, 久本大, 水野弘之, 溝口来成, 米田淳, 小寺哲夫. [講演奨励賞受賞記念講演] バイポーラ型シリコン量子ドットの高周波反射測定,
+                <li><u>太田俊輔</u>, 近藤知宏, 土屋龍太, 峰利之, 久本大, 水野弘之, 溝口来成, 米田淳, 小寺哲夫. [講演奨励賞受賞記念講演] バイポーラ型シリコン量子ドットの高周波反射測定,
                     18a-A32-2, 第85回応用物理学会秋季学術講演会, 朱鷺メッセ, 新潟, 2024年9月18日.</li>
             </ul>
 
@@ -626,6 +791,16 @@
                 <li>令和6年度手島精一記念研究賞（博士論文賞）, 国立大学法人東京科学大学（2025年3月）</li>
                 <li>第56回応用物理学会講演奨励賞, 公益社団法人応用物理学会（2024年9月）</li>
             </ul>
+
+            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+                    class="fas fa-newspaper" style="color:var(--accent-cyan); margin-right:8px;"></i>プレスリリース</h3>
+            <ul class="number-list">
+                <li>「余分な乱れ無く単一電子を高効率に移送することに成功 固体表面を伝搬する孤立パルス生成により実現、量子コンピューターへの応用に期待」<br>
+                    東京工業大学 ニュース (2022年9月30日) <a href="https://www.titech.ac.jp/news/2022/064783" target="_blank"
+                        rel="noopener noreferrer"><i class="fas fa-external-link-alt"
+                            style="font-size: 0.8rem; margin-left: 4px;"></i></a>
+                </li>
+            </ul>
         </section>
 
         <section id="activities">
@@ -633,18 +808,19 @@
             <div style="margin-bottom: 2.5rem;">
                 <h3
                     style="color:var(--accent-cyan); font-weight:600; font-size:1.1rem; border-left: 3px solid var(--accent-cyan); padding-left: 0.5rem;">
-                    <i class="fas fa-person-chalkboard" style="margin-right: 8px;"></i>教育・組織運営</h3>
+                    <i class="fas fa-person-chalkboard" style="margin-right: 8px;"></i>教育・組織運営
+                </h3>
                 <p><strong>学内講義</strong></p>
                 <ul class="indent-list arrow-list">
-                    <li><span class="date" style="width:140px;">2026年度 – 現在</span> 工学リテラシーI (XEG.B101)</li>
-                    <li><span class="date" style="width:140px;">2026年度 – 現在</span> 電気電子工学実験第三 「通信伝送」 (EEE.L311,
+                    <li><span class="date">2026年度 – 現在</span> 工学リテラシーI (XEG.B101)</li>
+                    <li><span class="date">2026年度 – 現在</span> 電気電子工学実験第三 「通信伝送」 (EEE.L311,
                         EEE.L312)</li>
                 </ul>
                 <p><strong>学内委員等</strong></p>
                 <ul class="indent-list arrow-list">
-                    <li><span class="date" style="width:200px;">2026年度 – 現在</span> 超スマート社会卓越教育院 (WISE-SSS)
-                        若手VI教員（イベント協力者）</li>
-                    <li><span class="date" style="width:200px;">2024年度 – 2025年度</span> 超スマート社会卓越教育院 (WISE-SSS) 準プログラム担当者
+                    <li><span class="date">2026年度 – 現在</span> 超スマート社会卓越教育院 (WISE-SSS)
+                        若手VI教員</li>
+                    <li><span class="date">2024年度 – 2025年度</span> 超スマート社会卓越教育院 (WISE-SSS) 準プログラム担当者
                     </li>
                 </ul>
             </div>
@@ -652,17 +828,18 @@
             <div>
                 <h3
                     style="color:var(--accent-cyan); font-weight:600; font-size:1.1rem; border-left: 3px solid var(--accent-cyan); padding-left: 0.5rem;">
-                    <i class="fas fa-sack-dollar" style="margin-right: 8px;"></i>助成金等</h3>
+                    <i class="fas fa-sack-dollar" style="margin-right: 8px;"></i>助成金等
+                </h3>
                 <ul class="indent-list arrow-list">
                     <li style="margin-bottom: 1.5rem;">
                         <strong>2026年度 笹川科学研究助成</strong><br>
                         <span style="color:#64748b; font-size:0.9rem;">研究課題名：IV族半導体を用いた核スピンフリー環境下でのアンドレーエフ束縛状態の制御と評価<br>
-                            役割：研究代表者 (内定金額：150万円)</span>
+                            役割：研究代表者</span>
                     </li>
                     <li>
                         <strong>2024年度 – 2025年度 科学研究費助成事業 研究活動スタート支援</strong><br>
                         <span style="color:#64748b; font-size:0.9rem;">研究課題名：半導体量子ドットを用いたニューロリアルデバイスの開発<br>
-                            役割：研究代表者 (総額：2,730千円)</span>
+                            役割：研究代表者</span>
                     </li>
                 </ul>
             </div>
@@ -670,28 +847,39 @@
 
         <section id="portfolio">
             <h2><i class="fas fa-camera-retro"></i>ポートフォリオ</h2>
-            <p>自身でデザインした画像や研究に関連する写真を掲載しています。</p>
+            <p>自身でデザインした画像や撮影した写真</p>
             <div class="portfolio-grid">
                 <div class="portfolio-item">
                     <img src="images/chip.png" alt="デバイスチップ画像"
                         style="width: 100%; height: 180px; object-fit: cover; display: block;">
-                    <div class="portfolio-caption"
-                        style="font-size: 0.75rem; color: #94a3b8; padding: 0.5rem 0.8rem; text-align: right;">デバイス概念図
-                    </div>
+                    <div class="portfolio-caption">半導体チップ概念図</div>
                 </div>
                 <div class="portfolio-item">
                     <img src="images/saw.png" alt="表面弾性波デバイス"
                         style="width: 100%; height: 180px; object-fit: cover; display: block;">
-                    <div class="portfolio-caption"
-                        style="font-size: 0.75rem; color: #94a3b8; padding: 0.5rem 0.8rem; text-align: right;">
-                        表面弾性波デバイス概念図</div>
+                    <div class="portfolio-caption">表面弾性波デバイス概念図</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="images/Thái Văn Lung Quận 1.png" alt="ホーチミン"
+                        style="width: 100%; height: 180px; object-fit: cover; display: block;">
+                    <div class="portfolio-caption">Thái Văn Lung Quận 1</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="images/マルセイユ.jpg" alt="マルセイユ"
+                        style="width: 100%; height: 180px; object-fit: cover; display: block;">
+                    <div class="portfolio-caption">Marseille</div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="images/井の頭公園 Tokyo.jpg" alt="井の頭公園"
+                        style="width: 100%; height: 180px; object-fit: cover; display: block;">
+                    <div class="portfolio-caption">井の頭公園</div>
                 </div>
             </div>
         </section>
 
         <div
             style="text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(15, 23, 42, 0.05);">
-            <p style="color: #94a3b8; font-size: 0.85rem;">&copy; shunsuke ota.</p>
+            <p style="color: #94a3b8; font-size: 0.85rem;">&copy; Shunsuke Ota.</p>
         </div>
     </main>
 
@@ -699,6 +887,12 @@
     <a href="#" id="back-to-top" title="トップへ戻る">
         <i class="fas fa-arrow-up"></i>
     </a>
+
+    <!-- ライトボックス (ポートフォリオ拡大表示用) -->
+    <div id="lightbox" class="lightbox">
+        <img src="" alt="拡大画像">
+        <div class="lightbox-caption"></div>
+    </div>
 
     <script>
         // スクロール検知でトップに戻るボタンを表示・非表示
@@ -751,6 +945,43 @@
 
             sections.forEach(section => {
                 observer.observe(section);
+            });
+
+            // --- ポートフォリオのライトボックス（画像拡大）機能 ---
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = lightbox.querySelector('img');
+            const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+            const portfolioImages = document.querySelectorAll('.portfolio-item img');
+
+            portfolioImages.forEach(img => {
+                img.addEventListener('click', function (e) {
+                    e.stopPropagation(); // 他のクリックイベントを防ぐ
+                    lightboxImg.src = this.src;
+
+                    // クリックした画像の兄弟要素（.portfolio-caption）からテキストを取得
+                    const captionEl = this.nextElementSibling;
+                    if (captionEl && captionEl.classList.contains('portfolio-caption')) {
+                        lightboxCaption.textContent = captionEl.textContent;
+                    } else {
+                        lightboxCaption.textContent = '';
+                    }
+
+                    lightbox.classList.add('show');
+                });
+            });
+
+            // どこかをクリックしたら閉じる（オーバーレイなど）
+            document.addEventListener('click', function (e) {
+                if (lightbox.classList.contains('show')) {
+                    lightbox.classList.remove('show');
+                }
+            });
+
+            // ライトボックス内の画像からカーソルが離れても閉じる
+            lightboxImg.addEventListener('mouseleave', function () {
+                if (lightbox.classList.contains('show')) {
+                    lightbox.classList.remove('show');
+                }
             });
         });
     </script>
