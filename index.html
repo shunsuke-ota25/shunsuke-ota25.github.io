@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shunsuke Ota | Assistant Professor</title>
+    <style>
+        /* 基本スタイル：学術的な慎重さを表現する落ち着いたトーン */
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            display: flex;
+            background-color: #fcfcfc;
+        }
+
+        /* サイドバー：PCで左側に固定 */
+        nav {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            background: #fff;
+            border-right: 1px solid #eee;
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+        }
+
+        nav h1 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        nav p { font-size: 0.85rem; color: #666; margin-bottom: 2rem; }
+        nav ul { list-style: none; padding: 0; }
+        nav ul li { margin-bottom: 0.8rem; }
+        nav ul li a { text-decoration: none; color: #444; font-size: 0.95rem; }
+        nav ul li a:hover { color: #000; text-decoration: underline; }
+
+        /* メインコンテンツ */
+        main {
+            margin-left: 280px; /* サイドバーの幅 + 余白 */
+            padding: 3rem 10% 5rem 5%;
+            max-width: 800px;
+        }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        h2 { border-bottom: 1px solid #ddd; padding-bottom: 0.5rem; font-weight: 500; }
+        .date { font-feature-settings: "tnum"; color: #777; width: 100px; display: inline-block; }
+
+        /* レスポンシブ：モバイル時はサイドバーを上部に */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            nav { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid #eee; padding: 1rem; }
+            main { margin-left: 0; padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h1>太田 俊輔</h1>
+    <p>Shunsuke Ota<br>東京科学大学 工学院 電気電子系 助教</p>
+    <ul>
+        <li><a href="#profile">自己紹介 (Profile)</a></li>
+        <li><a href="#news">ニュース (News)</a></li>
+        <li><a href="#research">研究分野 (Research)</a></li>
+        <li><a href="#publications">研究業績 (Publications)</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section id="profile">
+        <h2>自己紹介</h2>
+        <p>東京科学大学 工学院 電気電子系 助教。量子技術、特に半導体量子ドットを用いた量子ビットや量子コンピュータの基盤技術の研究に従事しています。</p>
+    </section>
+
+    <section id="news">
+        <h2>ニュース</h2>
+        <ul>
+            <li><span class="date">2026-04-01</span> 助教として着任しました。</li>
+        </ul>
+    </section>
+
+    <section id="research">
+        <h2>研究分野</h2>
+        <p>~に取り組んでいます。</p>
+    </section>
+
+    <section id="publications">
+        <h2>研究業績</h2>
+        <p>（工事中）</p>
+    </section>
+</main>
+
+</body>
+</html>
