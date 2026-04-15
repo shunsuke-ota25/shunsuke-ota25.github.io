@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shunsuke Ota | Assistant Professor</title>
+    <style>
+        /* 共通スタイル（日本語版と同一） */
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            display: flex;
+            background-color: #fcfcfc;
+        }
+
+        nav {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            background: #fff;
+            border-right: 1px solid #eee;
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+        }
+
+        nav h1 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        nav p { font-size: 0.85rem; color: #666; margin-bottom: 2rem; }
+        nav ul { list-style: none; padding: 0; }
+        nav ul li { margin-bottom: 0.8rem; }
+        nav ul li a { text-decoration: none; color: #444; font-size: 0.95rem; }
+        nav ul li a:hover { color: #000; text-decoration: underline; }
+
+        /* 言語切り替えボタン */
+        .lang-switch { margin-bottom: 2rem; font-size: 0.9rem; }
+        .lang-switch a { color: #0056b3; text-decoration: none; }
+        .lang-switch a:hover { text-decoration: underline; }
+
+        main {
+            margin-left: 280px;
+            padding: 3rem 10% 5rem 5%;
+            max-width: 800px;
+        }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        h2 { border-bottom: 1px solid #ddd; padding-bottom: 0.5rem; font-weight: 500; }
+        .date { font-feature-settings: "tnum"; color: #777; width: 110px; display: inline-block; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            nav { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid #eee; padding: 1rem; }
+            main { margin-left: 0; padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="lang-switch">
+        <a href="index.html">日本語</a> | <strong>English</strong>
+    </div>
+
+    <h1>Shunsuke Ota</h1>
+    <p>Assistant Professor<br>
+       Department of Electrical and Electronic Engineering,<br>
+       School of Engineering,<br>
+       Institute of Science Tokyo</p>
+    <ul>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#publications">Publications</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section id="profile">
+        <h2>Profile</h2>
+        <p>I am an Assistant Professor at the Institute of Science Tokyo. My research primarily focuses on the fundamental technologies of quantum bits (qubits) and quantum computers, with a specific emphasis on semiconductor quantum dots.</p>
+    </section>
+
+    <section id="news">
+        <h2>News</h2>
+        <ul>
+            <li><span class="date">2026-04-01</span> Appointed as an Assistant Professor.</li>
+        </ul>
+    </section>
+
+    <section id="research">
+        <h2>Research</h2>
+        <p>My current research investigates ~.</p>
+    </section>
+
+    <section id="publications">
+        <h2>Publications</h2>
+        <p>(Publication list will be updated here.)</p>
+    </section>
+</main>
+
+</body>
+</html>
