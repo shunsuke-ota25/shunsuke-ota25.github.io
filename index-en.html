@@ -318,7 +318,7 @@
         }
 
         /* 本文中の一般的なリンク装飾 */
-        main a:not(.portfolio-item a) {
+        main a:not(.portfolio-item a, .stealth-link) {
             color: var(--accent-cyan);
             text-decoration: none;
             position: relative;
@@ -326,7 +326,7 @@
             font-weight: 500;
         }
 
-        main a:not(.portfolio-item a)::after {
+        main a:not(.portfolio-item a, .stealth-link)::after {
             content: '';
             position: absolute;
             width: 100%;
@@ -340,13 +340,27 @@
             border-radius: 2px;
         }
 
-        main a:not(.portfolio-item a):hover::after {
+        main a:not(.portfolio-item a, .stealth-link):hover::after {
             transform: scaleX(1);
             transform-origin: bottom left;
         }
 
-        main a:not(.portfolio-item a):hover {
+        main a:not(.portfolio-item a, .stealth-link):hover {
             color: var(--accent-purple);
+        }
+
+        /* 目立たせないリンク装飾 */
+        .stealth-link {
+            color: inherit;
+            text-decoration: underline dotted;
+            text-decoration-color: #94a3b8;
+            text-underline-offset: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .stealth-link:hover {
+            color: var(--accent-cyan);
+            text-decoration-color: var(--accent-cyan);
         }
 
         /* 連絡先リンク */
@@ -604,7 +618,9 @@
             <h2><i class="fas fa-id-badge"></i>Profile</h2>
             <div style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-cyan); padding-left: 1rem;">
                 <p style="margin: 0; font-size: 1.2rem; font-weight: 700; color: var(--text-color);">Shunsuke Ota</p>
-                <p style="margin: 0.2rem 0 0 0; font-weight: 500;">Assistant Professor, Kodera Lab, Institute of Science
+                <p style="margin: 0.2rem 0 0 0; font-weight: 500;">Assistant Professor, <a
+                        href="http://www.quantum.ee.e.titech.ac.jp/" target="_blank" rel="noopener noreferrer"
+                        class="stealth-link" title="Kodera Lab">Kodera Lab</a>, Institute of Science
                     Tokyo</p>
             </div>
             <p>I am engaged in research on fundamental technologies for quantum bits and quantum computers, particularly
@@ -665,51 +681,6 @@
             <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
                     class="fas fa-file-lines" style="color:var(--accent-cyan); margin-right:8px;"></i>Journal articles
             </h3>
-            <ul class="number-list">
-                <li>R. Mizokuchi, R. Wada, R. Matsuoka, <u>S. Ota</u>, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H.
-                    Mizuno,
-                    T. Kodera. Improved readout accuracy of a silicon spin qubit via log-likelihood ratio, <em>Japanese
-                        Journal of Applied Physics</em>, <strong>65</strong>, 02SP03 (2026). (DOI:
-                    10.35848/1347-4065/ae2d60)</li>
-                <li>D. Zhang†, N. Negami†, R. Mizokuchi†, <u>S. Ota</u>, R. Wada, T. Kodera. Multi-bit state
-                    discrimination
-                    using machine learning for IQ-encoded spin-qubit readout, <em>Japanese Journal of Applied
-                        Physics</em>, <strong>65</strong>, 05SP22 (2026). (†: contributed equally to this work)</li>
-                <li>K. Fujiwara, <u>S. Ota</u>, T. Kodera, Y. Okazaki, N.-H. Kaneko, N. Jiang, Y. Niimi, S. Takada.
-                    Generation
-                    of a single-cycle surface acoustic wave pulse on LiNbO3 for application to thin-film materials,
-                    <em>Appl. Phys. Lett.</em> <strong>127</strong>, 022406 (2025).
-                </li>
-                <li><u>S. Ota</u>, Y. Okazaki, S. Nakamura, T. Oe, H. Sellier, C. Bäuerle, N.-H. Kaneko, T. Kodera, S.
-                    Takada.
-                    Suppression of electromagnetic crosstalk by differential excitation for SAW generation, <em>Appl.
-                        Phys. Express</em> <strong>17</strong>, 022002-1-6 (2024).</li>
-                <li><u>S. Ota</u>, J. Wang, H. Edlbauer, Y. Okazaki, S. Nakamura, T. Oe, A. Ludwig, A. D. Wieck, H.
-                    Sellier, C.
-                    Bäuerle, N.-H. Kaneko, T. Kodera, S. Takada. On-demand single-electron source via single-cycle
-                    acoustic pulses, <em>Phys. Rev. Applied</em> <strong>21</strong>, 024034-1-8 (2024).</li>
-                <li>J. Wang, H. Edlbauer, A. Richard, <u>S. Ota</u>, W. Park, J. Shim, A. Ludwig, A. D. Wieck, H.-S.
-                    Sim, M.
-                    Urdampilleta, T. Meunier, T. Kodera, N.-H. Kaneko, H. Sellier, X. Waintal, S. Takada & C. Bäuerle.
-                    Coulomb-mediated antibunching of an electron pair surfing on sound, <em>Nature Nanotechnology</em>
-                    <strong>18</strong>, 721 (2023).
-                </li>
-                <li>J. Wang*, <u>S. Ota</u>*, H. Edlbauer*, B. Jadot, P.-A. Mortemousque, A. Richard, Y. Okazaki, S.
-                    Nakamura,
-                    A. Ludwig, A. D. Wieck, M. Urdampilleta, T. Meunier, T. Kodera, N.-H. Kaneko, S. Takada, C. Bäuerle.
-                    Generation of a Single-Cycle Acoustic Pulse: A Scalable Solution for Transport in Single-Electron
-                    Circuits, <em>Phys. Rev. X</em> <strong>12</strong>, 031035 (2022). (*: contributed equally to this
-                    work)</li>
-                <li>H. Edlbauer*, J. Wang*, <u>S. Ota</u>*, A. Richard, B. Jadot, P.-A. Mortemousque, Y. Okazaki, S.
-                    Nakamura,
-                    T. Kodera, N.-H. Kaneko, A. Ludwig, A. D. Wieck, M. Urdampilleta, T. Meunier, C. Bäuerle, S. Takada.
-                    In-flight distribution of an electron within a surface acoustic wave, <em>Appl. Phys. Lett.</em>
-                    <strong>119</strong>, 114004 (2021). (*: contributed equally to this work)
-                </li>
-            </ul>
-            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
-                    class="fas fa-file-lines" style="color:var(--accent-cyan); margin-right:8px;"></i>International
-                Conference</h3>
             <ul class="number-list">
                 <li>R. Mizokuchi, R. Wada, R. Matsuoka, <u>S. Ota</u>, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H.
                     Mizuno,

@@ -319,7 +319,7 @@
         }
 
         /* 本文中の一般的なリンク装飾 */
-        main a:not(.portfolio-item a) {
+        main a:not(.portfolio-item a, .stealth-link) {
             color: var(--accent-cyan);
             text-decoration: none;
             position: relative;
@@ -327,7 +327,7 @@
             font-weight: 500;
         }
 
-        main a:not(.portfolio-item a)::after {
+        main a:not(.portfolio-item a, .stealth-link)::after {
             content: '';
             position: absolute;
             width: 100%;
@@ -341,13 +341,27 @@
             border-radius: 2px;
         }
 
-        main a:not(.portfolio-item a):hover::after {
+        main a:not(.portfolio-item a, .stealth-link):hover::after {
             transform: scaleX(1);
             transform-origin: bottom left;
         }
 
-        main a:not(.portfolio-item a):hover {
+        main a:not(.portfolio-item a, .stealth-link):hover {
             color: var(--accent-purple);
+        }
+
+        /* 目立たせないリンク装飾 */
+        .stealth-link {
+            color: inherit;
+            text-decoration: underline dotted;
+            text-decoration-color: #94a3b8;
+            text-underline-offset: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .stealth-link:hover {
+            color: var(--accent-cyan);
+            text-decoration-color: var(--accent-cyan);
         }
 
         /* 連絡先リンク */
@@ -606,7 +620,7 @@
             <div style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-cyan); padding-left: 1rem;">
                 <p style="margin: 0; font-size: 1.2rem; font-weight: 700; color: var(--text-color);">太田 俊輔 <span
                         style="font-size: 0.9rem; font-weight: 400; color: #64748b;">(Shunsuke Ota)</span></p>
-                <p style="margin: 0.2rem 0 0 0; font-weight: 500;">東京科学大学 工学院 電気電子系 小寺研究室 助教</p>
+                <p style="margin: 0.2rem 0 0 0; font-weight: 500;">東京科学大学 工学院 電気電子系 <a href="http://www.quantum.ee.e.titech.ac.jp/" target="_blank" rel="noopener noreferrer" class="stealth-link" title="小寺研究室">小寺研究室</a> 助教</p>
             </div>
 
             <p>量子技術、特に半導体量子ドットを用いた量子ビットや量子コンピュータの基盤技術の研究に従事しています。</p>
