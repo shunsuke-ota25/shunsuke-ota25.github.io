@@ -179,24 +179,56 @@ nav ul li a.active::before {
     align-items: center;
     cursor: pointer;
     text-decoration: none !important;
+    overflow: hidden;
+    height: 32px;
 }
+
+/* スライドする「にゅるっと」した背景（ピル） */
+.lang-switch-container::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: calc(50% - 3px);
+    height: calc(100% - 6px);
+    background: var(--timeline-bg);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    z-index: 0;
+}
+
+/* ページごとのピル位置設定 */
+.lang-jp::before { transform: translateX(0); }
+.lang-en::before { transform: translateX(100%); }
+
+/* ホバー時の「にゅるっと」した予兆アニメーション */
+.lang-switch-container:hover::before {
+    transform: scaleX(1.1);
+}
+
+.lang-jp:hover::before { transform: translateX(5%) scaleX(1.1); }
+.lang-en:hover::before { transform: translateX(95%) scaleX(1.1); }
 
 .lang-switch-btn {
     position: relative;
     z-index: 1;
-    padding: 4px 12px;
+    padding: 0 12px;
     font-size: 0.8rem;
     font-weight: 600;
+    line-height: 26px;
     text-decoration: none !important;
     color: var(--text-muted) !important;
     border-radius: 16px;
-    transition: all 0.3s ease;
+    transition: color 0.4s ease;
+    width: 48px;
+    text-align: center;
 }
 
 .lang-switch-btn.active {
     color: var(--accent-cyan) !important;
-    background: var(--timeline-bg);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: transparent !important; /* 背景は::beforeで表現 */
+    box-shadow: none !important;
 }
 
 /* テーマ切り替えボタン */
