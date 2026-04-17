@@ -1,27 +1,57 @@
-/* 量子コンピュータ・ライトテーマをベースにしたモダンデザイン */
+/* デザイン色彩設計: ライト/ダーク共通 */
 :root {
+    /* Base Colors (Light Theme) */
     --bg-color: #f8fafc;
-    --text-color: #0f172a;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
     --accent-cyan: #0284c7;
     --accent-purple: #7e22ce;
-    --glass-bg: rgba(255, 255, 255, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.4);
+    
+    /* UI Elements */
+    --glass-bg: rgba(255, 255, 255, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.3);
     --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+    --nav-bg: rgba(255, 255, 255, 0.4);
+    --nav-item-color: #475569;
+    --nav-item-hover-bg: rgba(2, 132, 199, 0.06);
+    --timeline-line: rgba(2, 132, 199, 0.15);
+    --timeline-bg: #ffffff;
+}
+
+/* Dark Theme Overrides */
+[data-theme='dark'] {
+    --bg-color: #0b0f1a;
+    --text-primary: #f1f5f9;
+    --text-secondary: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent-cyan: #38bdf8;
+    --accent-purple: #c084fc;
+    
+    --glass-bg: rgba(15, 23, 42, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    --nav-bg: rgba(15, 23, 42, 0.6);
+    --nav-item-color: #cbd5e1;
+    --nav-item-hover-bg: rgba(56, 189, 248, 0.1);
+    --timeline-line: rgba(56, 189, 248, 0.2);
+    --timeline-bg: #1e293b;
 }
 
 body {
     font-family: 'Inter', 'Noto Sans JP', sans-serif;
     line-height: 1.7;
-    color: var(--text-color);
+    color: var(--text-secondary);
     margin: 0;
     display: flex;
     background-color: var(--bg-color);
     position: relative;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* 背景: 静的なグラデーションに変更 */
+/* 背景: 静的なグラデーション */
 .quantum-bg {
     position: fixed;
     top: 0;
@@ -31,23 +61,24 @@ body {
     z-index: -1;
     overflow: hidden;
     background-color: var(--bg-color);
-    background: radial-gradient(circle at 0% 0%, rgba(2, 132, 199, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, rgba(126, 34, 206, 0.05) 0%, transparent 50%);
+    background: radial-gradient(circle at 0% 0%, rgba(2, 132, 199, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(126, 34, 206, 0.06) 0%, transparent 50%);
 }
 
 /* サイドバー: グラスモフィズム */
 nav {
-    width: 220px;
+    width: 200px;
     height: 100vh;
     position: fixed;
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--nav-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-right: 1px solid var(--glass-border);
-    padding: 2.5rem 2rem;
+    padding: 2rem 1.25rem;
     overflow-y: auto;
     box-shadow: 10px 0 30px rgba(0, 0, 0, 0.02);
     z-index: 10;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 nav h1 {
@@ -55,15 +86,15 @@ nav h1 {
     margin-bottom: 0.5rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    background: linear-gradient(90deg, var(--accent-cyan), var(--text-color));
+    background: linear-gradient(90deg, var(--accent-cyan), var(--text-primary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 nav p {
     font-size: 0.8rem;
-    color: #64748b;
-    margin-bottom: 2.5rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
     font-weight: 400;
     line-height: 1.4;
 }
@@ -81,7 +112,7 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #475569;
+    color: var(--nav-item-color);
     font-size: 0.9rem;
     transition: all 0.3s ease;
     display: flex;
@@ -96,14 +127,14 @@ nav ul li a i {
     width: 16px;
     text-align: center;
     color: var(--accent-cyan);
-    opacity: 0.7;
+    opacity: 0.8;
     transition: all 0.3s ease;
 }
 
 nav ul li a:hover,
 nav ul li a.active {
     color: var(--accent-cyan);
-    background: rgba(2, 132, 199, 0.05);
+    background: var(--nav-item-hover-bg);
 }
 
 nav ul li a:hover i,
@@ -129,13 +160,22 @@ nav ul li a.active::before {
     height: 70%;
 }
 
+/* ナビ上部のボタン配置用 */
+.nav-top-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 2rem;
+    gap: 10px;
+}
+
+/* 言語スイッチ容器 */
 .lang-switch-container {
     display: inline-flex;
-    background: rgba(2, 132, 199, 0.08);
+    background: rgba(2, 132, 199, 0.1);
     border-radius: 20px;
-    padding: 4px;
+    padding: 3px;
     position: relative;
-    margin-bottom: 1.5rem;
     align-items: center;
     cursor: pointer;
     text-decoration: none !important;
@@ -144,24 +184,46 @@ nav ul li a.active::before {
 .lang-switch-btn {
     position: relative;
     z-index: 1;
-    padding: 4px 16px;
-    font-size: 0.85rem;
+    padding: 4px 12px;
+    font-size: 0.8rem;
     font-weight: 600;
     text-decoration: none !important;
-    color: #64748b !important;
+    color: var(--text-muted) !important;
     border-radius: 16px;
     transition: all 0.3s ease;
 }
 
 .lang-switch-btn.active {
     color: var(--accent-cyan) !important;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15);
+    background: var(--timeline-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* テーマ切り替えボタン */
+#theme-toggle {
+    background: rgba(2, 132, 199, 0.1);
+    border: none;
+    color: var(--accent-cyan);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+#theme-toggle:hover {
+    background: var(--accent-cyan);
+    color: #fff;
+    transform: rotate(20deg);
 }
 
 /* メインコンテンツ */
 main {
-    margin-left: 284px;
+    margin-left: 250px;
     padding: 4rem 5% 6rem 5%;
     max-width: 900px;
     position: relative;
@@ -172,24 +234,24 @@ main {
 section {
     margin-bottom: 4rem;
     scroll-margin-top: 5rem;
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--glass-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
     padding: 2.5rem;
     border-radius: 24px;
     box-shadow: var(--card-shadow);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s, background-color 0.4s, border-color 0.4s;
 }
 
 section:hover {
     transform: translateY(-5px);
     border-color: rgba(2, 132, 199, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+    border-bottom: 1px solid var(--glass-border);
     padding-bottom: 1rem;
     font-weight: 600;
     font-size: 1.5rem;
@@ -208,14 +270,14 @@ h2 i {
 
 .date {
     font-feature-settings: "tnum";
-    color: #64748b;
+    color: var(--text-muted);
     flex-shrink: 0;
     width: 170px;
     margin-right: 15px;
     display: inline-block;
     font-size: 0.9rem;
     letter-spacing: 0.05em;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* リストスタイル */
@@ -229,7 +291,7 @@ h2 i {
     position: relative;
     padding-left: 1.8rem;
     margin-bottom: 0.8rem;
-    color: #334155;
+    color: var(--text-secondary);
     display: flex;
     align-items: flex-start;
 }
@@ -254,7 +316,7 @@ h2 i {
     position: relative;
     padding-left: 2rem;
     margin-bottom: 1rem;
-    color: #334155;
+    color: var(--text-secondary);
     line-height: 1.6;
 }
 
@@ -269,7 +331,7 @@ h2 i {
 }
 
 p {
-    color: #334155;
+    color: var(--text-secondary);
     font-weight: 400;
 }
 
@@ -308,7 +370,7 @@ main a:not(.portfolio-item a, .stealth-link):hover {
 .stealth-link {
     color: inherit;
     text-decoration: underline dotted;
-    text-decoration-color: #94a3b8;
+    text-decoration-color: var(--text-muted);
     text-underline-offset: 4px;
     transition: all 0.3s ease;
 }
@@ -344,7 +406,7 @@ main a:not(.portfolio-item a, .stealth-link):hover {
     right: 30px;
     width: 50px;
     height: 50px;
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--nav-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
@@ -371,6 +433,7 @@ main a:not(.portfolio-item a, .stealth-link):hover {
     transform: translateY(-5px);
     background: var(--accent-cyan);
     color: #fff;
+    box-shadow: 0 8px 32px rgba(2, 132, 199, 0.3);
 }
 
 /* ポートフォリオ */
@@ -385,8 +448,8 @@ main a:not(.portfolio-item a, .stealth-link):hover {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
     backdrop-filter: blur(4px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
@@ -394,7 +457,8 @@ main a:not(.portfolio-item a, .stealth-link):hover {
 
 .portfolio-item:hover {
     transform: scale(1.03);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    border-color: var(--accent-cyan);
 }
 
 .portfolio-item img {
@@ -413,7 +477,7 @@ main a:not(.portfolio-item a, .stealth-link):hover {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
@@ -469,12 +533,13 @@ main a:not(.portfolio-item a, .stealth-link):hover {
 }
 
 .news-container::-webkit-scrollbar-track {
-    background: rgba(15, 23, 42, 0.03);
+    background: rgba(0, 0, 0, 0.05);
     border-radius: 4px;
 }
 
 .news-container::-webkit-scrollbar-thumb {
-    background: rgba(2, 132, 199, 0.2);
+    background: var(--accent-cyan);
+    opacity: 0.3;
     border-radius: 4px;
 }
 
@@ -492,14 +557,14 @@ main a:not(.portfolio-item a, .stealth-link):hover {
     bottom: 0;
     left: 55px;
     width: 2px;
-    background-color: rgba(2, 132, 199, 0.15);
+    background-color: var(--timeline-line);
 }
 
 .timeline-list li {
     position: relative;
     padding-left: 115px;
     margin-bottom: 2rem;
-    color: #334155;
+    color: var(--text-secondary);
     transition: transform 0.3s;
 }
 
@@ -512,7 +577,7 @@ main a:not(.portfolio-item a, .stealth-link):hover {
     left: 10px;
     top: -2px;
     width: 90px;
-    background: #fff;
+    background: var(--timeline-bg);
     border: 2px solid var(--accent-cyan);
     border-radius: 20px;
     color: var(--accent-cyan);
@@ -521,7 +586,7 @@ main a:not(.portfolio-item a, .stealth-link):hover {
     text-align: center;
     padding: 3px 0;
     z-index: 1;
-    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* レスポンシブ */
@@ -536,8 +601,27 @@ main a:not(.portfolio-item a, .stealth-link):hover {
         position: static;
         border-right: none;
         border-bottom: 1px solid var(--glass-border);
-        padding: 1.5rem;
-        background: rgba(255, 255, 255, 0.6);
+        padding: 1.2rem 1.2rem;
+        background: var(--nav-bg);
+    }
+
+    .nav-top-buttons {
+        margin-bottom: 1.2rem;
+    }
+
+    .lang-switch-btn {
+        padding: 4px 12px;
+        font-size: 0.8rem;
+    }
+
+    #theme-toggle {
+        width: 36px;
+        height: 36px;
+    }
+
+    nav h1 {
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
     }
 
     nav ul {
@@ -545,6 +629,7 @@ main a:not(.portfolio-item a, .stealth-link):hover {
         flex-wrap: wrap;
         gap: 0.5rem;
         margin-bottom: 1rem;
+        padding-top: 0.5rem;
     }
 
     nav ul li {
