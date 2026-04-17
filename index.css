@@ -1,0 +1,587 @@
+/* 量子コンピュータ・ライトテーマをベースにしたモダンデザイン */
+:root {
+    --bg-color: #f8fafc;
+    --text-color: #0f172a;
+    --accent-cyan: #0284c7;
+    --accent-purple: #7e22ce;
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+}
+
+body {
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    background-color: var(--bg-color);
+    position: relative;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* 背景: 静的なグラデーションに変更 */
+.quantum-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    background: radial-gradient(circle at 0% 0%, rgba(2, 132, 199, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(126, 34, 206, 0.05) 0%, transparent 50%);
+}
+
+/* サイドバー: グラスモフィズム */
+nav {
+    width: 220px;
+    height: 100vh;
+    position: fixed;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid var(--glass-border);
+    padding: 2.5rem 2rem;
+    overflow-y: auto;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.02);
+    z-index: 10;
+}
+
+nav h1 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--text-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+nav p {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 3rem;
+}
+
+nav ul li {
+    margin-bottom: 0.8rem;
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #475569;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-left: -12px;
+}
+
+nav ul li a i {
+    margin-right: 10px;
+    width: 16px;
+    text-align: center;
+    color: var(--accent-cyan);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--accent-cyan);
+    background: rgba(2, 132, 199, 0.05);
+}
+
+nav ul li a:hover i,
+nav ul li a.active i {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+nav ul li a::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 0;
+    background-color: var(--accent-cyan);
+    transition: height 0.3s ease;
+    border-radius: 0 4px 4px 0;
+}
+
+nav ul li a.active::before {
+    height: 70%;
+}
+
+.lang-switch-container {
+    display: inline-flex;
+    background: rgba(2, 132, 199, 0.08);
+    border-radius: 20px;
+    padding: 4px;
+    position: relative;
+    margin-bottom: 1.5rem;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none !important;
+}
+
+.lang-switch-btn {
+    position: relative;
+    z-index: 1;
+    padding: 4px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none !important;
+    color: #64748b !important;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.lang-switch-btn.active {
+    color: var(--accent-cyan) !important;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15);
+}
+
+/* メインコンテンツ */
+main {
+    margin-left: 284px;
+    padding: 4rem 5% 6rem 5%;
+    max-width: 900px;
+    position: relative;
+    z-index: 1;
+}
+
+/* セクション: グラスモフィズム */
+section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 5rem;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    padding: 2.5rem;
+    border-radius: 24px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+}
+
+section:hover {
+    transform: translateY(-5px);
+    border-color: rgba(2, 132, 199, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+}
+
+h2 {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+    padding-bottom: 1rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--accent-cyan);
+    letter-spacing: 0.05em;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+}
+
+h2 i {
+    margin-right: 12px;
+    font-size: 1.3rem;
+    opacity: 0.8;
+}
+
+.date {
+    font-feature-settings: "tnum";
+    color: #64748b;
+    flex-shrink: 0;
+    width: 170px;
+    margin-right: 15px;
+    display: inline-block;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+
+/* リストスタイル */
+.indent-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+}
+
+.indent-list li {
+    position: relative;
+    padding-left: 1.8rem;
+    margin-bottom: 0.8rem;
+    color: #334155;
+    display: flex;
+    align-items: flex-start;
+}
+
+.indent-list.arrow-list li::before {
+    content: "\f0da";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0.2rem;
+    top: 2px;
+    color: var(--accent-cyan);
+}
+
+.number-list {
+    list-style-type: none;
+    counter-reset: my-counter;
+    padding-left: 0;
+}
+
+.number-list li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+    color: #334155;
+    line-height: 1.6;
+}
+
+.number-list li::before {
+    content: counter(my-counter) ".";
+    counter-increment: my-counter;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 600;
+    color: var(--accent-purple);
+}
+
+p {
+    color: #334155;
+    font-weight: 400;
+}
+
+/* リンク装飾 */
+main a:not(.portfolio-item a, .stealth-link) {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+    font-weight: 500;
+}
+
+main a:not(.portfolio-item a, .stealth-link)::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--accent-cyan);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+    border-radius: 2px;
+}
+
+main a:not(.portfolio-item a, .stealth-link):hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+main a:not(.portfolio-item a, .stealth-link):hover {
+    color: var(--accent-purple);
+}
+
+.stealth-link {
+    color: inherit;
+    text-decoration: underline dotted;
+    text-decoration-color: #94a3b8;
+    text-underline-offset: 4px;
+    transition: all 0.3s ease;
+}
+
+.stealth-link:hover {
+    color: var(--accent-cyan);
+    text-decoration-color: var(--accent-cyan);
+}
+
+/* 連絡先 */
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.contact-list li {
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+}
+
+.contact-list i {
+    width: 25px;
+    color: var(--accent-cyan);
+    font-size: 1.1rem;
+}
+
+/* トップに戻るボタン */
+#back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--accent-cyan);
+    font-size: 1.2rem;
+    text-decoration: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+#back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#back-to-top:hover {
+    transform: translateY(-5px);
+    background: var(--accent-cyan);
+    color: #fff;
+}
+
+/* ポートフォリオ */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.portfolio-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.portfolio-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-item img {
+    width: 100%;
+    display: block;
+    cursor: pointer;
+}
+
+.portfolio-caption {
+    display: none;
+}
+
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.lightbox.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.lightbox.show img {
+    transform: scale(1);
+}
+
+.lightbox-caption {
+    position: absolute;
+    bottom: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    padding: 8px 20px;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ニュース・タイムライン */
+.news-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 15px;
+    margin-top: 1rem;
+}
+
+.news-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.news-container::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.03);
+    border-radius: 4px;
+}
+
+.news-container::-webkit-scrollbar-thumb {
+    background: rgba(2, 132, 199, 0.2);
+    border-radius: 4px;
+}
+
+.timeline-list {
+    list-style: none;
+    padding: 10px 0 10px 10px;
+    margin: 0;
+    position: relative;
+}
+
+.timeline-list::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 55px;
+    width: 2px;
+    background-color: rgba(2, 132, 199, 0.15);
+}
+
+.timeline-list li {
+    position: relative;
+    padding-left: 115px;
+    margin-bottom: 2rem;
+    color: #334155;
+    transition: transform 0.3s;
+}
+
+.timeline-list li:hover {
+    transform: translateX(5px);
+}
+
+.timeline-list .date {
+    position: absolute;
+    left: 10px;
+    top: -2px;
+    width: 90px;
+    background: #fff;
+    border: 2px solid var(--accent-cyan);
+    border-radius: 20px;
+    color: var(--accent-cyan);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 3px 0;
+    z-index: 1;
+    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.1);
+}
+
+/* レスポンシブ */
+@media (max-width: 850px) {
+    body {
+        flex-direction: column;
+    }
+
+    nav {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--glass-border);
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.6);
+    }
+
+    nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    nav ul li {
+        margin: 0;
+    }
+
+    nav ul li a::before {
+        display: none;
+    }
+
+    main {
+        margin-left: 0;
+        padding: 2rem 1.2rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    section {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+
+    .date {
+        width: auto;
+        margin-bottom: 5px;
+    }
+
+    .timeline-list li {
+        padding-left: 0;
+        padding-top: 35px;
+    }
+
+    .timeline-list::before {
+        left: 20px;
+    }
+
+    .timeline-list .date {
+        left: 0;
+    }
+}
