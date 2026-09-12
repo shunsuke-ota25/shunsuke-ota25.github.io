@@ -60,7 +60,19 @@
             <li><a href="#profile" class="active"><i class="fas fa-id-card"></i>自己紹介</a></li>
             <li><a href="#news"><i class="fas fa-bell"></i>ニュース</a></li>
             <li><a href="#career"><i class="fas fa-building-columns"></i>経歴</a></li>
-            <li><a href="#publications"><i class="fas fa-book-open"></i>研究業績</a></li>
+            <li class="has-sub">
+                <a href="#publications"><i class="fas fa-book-open"></i>研究業績</a>
+                <ul class="nav-sub">
+                    <li><a href="#pub-journal">学術論文</a></li>
+                    <li><a href="#pub-intl-first">国際学会 (筆頭)</a></li>
+                    <li><a href="#pub-intl-co">国際学会 (共著)</a></li>
+                    <li><a href="#pub-domestic">国内会議</a></li>
+                    <li><a href="#pub-books">総説・著書</a></li>
+                    <li><a href="#pub-invited">招待講演</a></li>
+                    <li><a href="#pub-awards">受賞</a></li>
+                    <li><a href="#pub-press">プレスリリース</a></li>
+                </ul>
+            </li>
             <li><a href="#activities"><i class="fas fa-chalkboard-user"></i>教育・助成金等</a></li>
             <li><a href="#portfolio"><i class="fas fa-camera-retro"></i>ポートフォリオ</a></li>
         </ul>
@@ -145,11 +157,15 @@
         <!-- ※順番を入れ替え（Publicationsが先、Activitiesが後） -->
 
         <section id="publications">
-            <h2><i class="fas fa-book-open"></i>研究業績</h2>
+            <div class="section-header-flex">
+                <h2><i class="fas fa-book-open"></i>研究業績</h2>
+                <button class="pub-toggle-all-btn" id="pub-toggle-all" title="すべての業績を展開/折りたたむ">
+                    <i class="fas fa-angles-down"></i>
+                    <span>すべて展開</span>
+                </button>
+            </div>
 
-
-
-            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+            <h3 id="pub-journal" style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
                     class="fas fa-file-lines" style="color:var(--accent-cyan); margin-right:8px;"></i>学術雑誌等掲載論文</h3>
             <ul class="number-list">
                 <li>R. Mizokuchi, R. Wada, R. Matsuoka, <u>S. Ota</u>, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H.
@@ -216,10 +232,10 @@
                 </li>
             </ul>
 
-            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+            <h3 id="pub-intl" style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
                     class="fas fa-globe" style="color:var(--accent-cyan); margin-right:8px;"></i>国際学会発表論文</h3>
             
-            <h4 class="sub-category-title"><i class="fas fa-user-pen" style="font-size:0.85rem; color:var(--accent-cyan); margin-right:6px;"></i>筆頭発表</h4>
+            <h4 id="pub-intl-first" class="sub-category-title"><i class="fas fa-user-pen" style="font-size:0.85rem; color:var(--accent-cyan); margin-right:6px;"></i>筆頭発表</h4>
             <ul class="number-list">
                 <li><u>S. Ota</u>, T. Fukuda, T. Toshimitsu, R. Mizokuchi, T. Kodera. Cryogenic Characterization of
                     Commercial
@@ -268,7 +284,7 @@
                         Materials (SSDM2019)</em>, E-1-03, Nagoya, Japan, September 3 (2019). <span class="badge-peer">査読有</span></li>
             </ul>
 
-            <h4 class="sub-category-title"><i class="fas fa-user-group" style="font-size:0.85rem; color:var(--accent-cyan); margin-right:6px;"></i>共著発表</h4>
+            <h4 id="pub-intl-co" class="sub-category-title"><i class="fas fa-user-group" style="font-size:0.85rem; color:var(--accent-cyan); margin-right:6px;"></i>共著発表</h4>
             <ul class="number-list">
                 <li>R. Mizokuchi, R. Matsuoka, <u>S. Ota</u>, I. Yanagi, T. Mine, R. Tsuchiya, D. Hisamoto, H. Mizuno, T. Kodera.
                     Characterization of Energy Relaxation Time of a Silicon Qubit under Readout Conditions, <a
@@ -313,7 +329,7 @@
                     Physically-defined multiple silicon quantum dots toward integration of spin-based quantum bits, <em>Japan-Netherlands Quantum Conference</em>, Sept. 2019. <span class="badge-peer">査読有</span></li>
             </ul>
 
-            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+            <h3 id="pub-domestic" style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
                     class="fas fa-users" style="color:var(--accent-cyan); margin-right:8px;"></i>国内会議</h3>
             <ul class="number-list">
                 <li>河底颯生, 森田智也, 小林昌平, <u>太田俊輔</u>, 小寺哲夫, 森山貴広, 樽茶清悟, 松尾貞茂. 表面フォノン照射に向けたジョセフソン接合デバイスの作製, <a href="https://pub.confit.atlas.jp/ja/event/jsap2026a/presentation/8p-A24-2" target="_blank" rel="noopener noreferrer" class="stealth-link"><em>第87回応用物理学会秋季学術講演会</em>, 8p-A24-2, 2026年9月.</a></li>
@@ -340,7 +356,7 @@
                 <li><u>太田俊輔</u>, 平岡宗一郎, 溝口来成, 小寺哲夫. シリコン3重量子ドットにおける長距離相互作用, <em>第66回応用物理学会春季学術講演会</em>, 2019年3月.</li>
             </ul>
 
-            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+            <h3 id="pub-books" style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
                     class="fas fa-book" style="color:var(--accent-cyan); margin-right:8px;"></i>総説・解説・著書</h3>
             <ul class="number-list">
                 <li>小寺哲夫, <u>太田俊輔</u>, 「第3編 量子コンピューティング（ハードウェア編） 第4章 半導体型量子コンピューティング 第1節
@@ -348,7 +364,7 @@
                 <li>高田真太郎, <u>太田俊輔</u>, 「基礎講座＋αの研究技術：表面弾性波で単一パルスを作る」 <em>応用物理</em>, 92巻 12号 p. 741-745 (2023).</li>
             </ul>
 
-            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+            <h3 id="pub-invited" style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
                     class="fas fa-microphone-lines" style="color:var(--accent-cyan); margin-right:8px;"></i>招待講演</h3>
             <ul class="number-list">
                 <li><u>S. Ota</u>. Fundamental Technologies for Scalable Semiconductor Quantum Computing, Leti
@@ -360,7 +376,7 @@
                     18a-A32-2, 第85回応用物理学会秋季学術講演会, 朱鷺メッセ, 新潟, 2024年9月18日.</li>
             </ul>
 
-            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+            <h3 id="pub-awards" style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
                     class="fas fa-trophy" style="color:var(--accent-cyan); margin-right:8px;"></i>受賞</h3>
             <ul class="number-list">
                 <li>応用物理学会論文賞 応用物理学会論文奨励賞, 公益社団法人応用物理学会（2026年3月）</li>
@@ -368,7 +384,7 @@
                 <li>第56回応用物理学会講演奨励賞, 公益社団法人応用物理学会（2024年9月）</li>
             </ul>
 
-            <h3 style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
+            <h3 id="pub-press" style="color:var(--text-color); font-size:1.1rem; font-weight:600; margin-top:2rem;"><i
                     class="fas fa-newspaper" style="color:var(--accent-cyan); margin-right:8px;"></i>プレスリリース</h3>
             <ul class="number-list">
                 <li>「余分な乱れ無く単一電子を高効率に移送することに成功 固体表面を伝搬する孤立パルス生成により実現、量子コンピューターへの応用に期待」<br>
@@ -480,98 +496,6 @@
         <img src="" alt="拡大画像">
         <div class="lightbox-caption"></div>
     </div>
-
-    <script>
-        // スクロール検知でトップに戻るボタンを表示・非表示
-        window.addEventListener('scroll', function () {
-            var backToTop = document.getElementById('back-to-top');
-            if (window.scrollY > 300) {
-                backToTop.classList.add('show');
-            } else {
-                backToTop.classList.remove('show');
-            }
-        });
-
-        // スムーズスクロール
-        document.getElementById('back-to-top').addEventListener('click', function (e) {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // スクロールスパイ（アクティブメニューのハイライト）
-        document.addEventListener('DOMContentLoaded', function () {
-            const sections = document.querySelectorAll('main section');
-            const navLinks = document.querySelectorAll('nav ul li a');
-
-            // 画面中央付近を監視の基準とする設定
-            const observerOptions = {
-                root: null,
-                rootMargin: '-30% 0px -50% 0px',
-                threshold: 0
-            };
-
-            const observer = new IntersectionObserver(function (entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const activeId = entry.target.getAttribute('id');
-
-                        // まずすべてのリンクから active を外す
-                        navLinks.forEach(link => link.classList.remove('active'));
-
-                        // 今見えているセクションのリンクに active を付ける
-                        const activeLink = document.querySelector(`nav ul li a[href="#${activeId}"]`);
-                        if (activeLink) {
-                            activeLink.classList.add('active');
-                        }
-                    }
-                });
-            }, observerOptions);
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            // --- ポートフォリオのライトボックス（画像拡大）機能 ---
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = lightbox.querySelector('img');
-            const lightboxCaption = lightbox.querySelector('.lightbox-caption');
-            const portfolioImages = document.querySelectorAll('.portfolio-item img');
-
-            portfolioImages.forEach(img => {
-                img.addEventListener('click', function (e) {
-                    e.stopPropagation(); // 他のクリックイベントを防ぐ
-                    lightboxImg.src = this.src;
-
-                    // クリックした画像の兄弟要素（.portfolio-caption）からテキストを取得
-                    const captionEl = this.nextElementSibling;
-                    if (captionEl && captionEl.classList.contains('portfolio-caption')) {
-                        lightboxCaption.textContent = captionEl.textContent;
-                    } else {
-                        lightboxCaption.textContent = '';
-                    }
-
-                    lightbox.classList.add('show');
-                });
-            });
-
-            // どこかをクリックしたら閉じる（オーバーレイなど）
-            document.addEventListener('click', function (e) {
-                if (lightbox.classList.contains('show')) {
-                    lightbox.classList.remove('show');
-                }
-            });
-
-            // ライトボックス内の画像からカーソルが離れても閉じる
-            lightboxImg.addEventListener('mouseleave', function () {
-                if (lightbox.classList.contains('show')) {
-                    lightbox.classList.remove('show');
-                }
-            });
-        });
-    </script>
 
     <script src="index.js"></script>
 </body>

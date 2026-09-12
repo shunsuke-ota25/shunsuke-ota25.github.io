@@ -736,4 +736,182 @@ main a:not(.portfolio-item a, .stealth-link):hover {
     .timeline-list .date {
         left: 0;
     }
+
+    /* モバイル表示時はサイドバーのサブメニューを非表示 */
+    .nav-sub {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   動的サブメニュー（左ナビゲーション）
+   ========================================================================== */
+.nav-sub {
+    list-style: none;
+    padding: 0;
+    margin: 0.2rem 0 0.5rem 0.6rem;
+    border-left: 2px solid var(--glass-border);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transform-origin: top;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin 0.3s ease;
+}
+
+/* セクション表示中、またはホバー時にサブメニューを展開 */
+.has-sub.open .nav-sub,
+.has-sub:hover .nav-sub {
+    max-height: 380px;
+    opacity: 1;
+    pointer-events: auto;
+    margin-top: 0.4rem;
+    margin-bottom: 0.8rem;
+}
+
+.nav-sub li {
+    margin-bottom: 0.2rem;
+}
+
+.nav-sub li a {
+    font-size: 0.78rem;
+    padding: 4px 8px 4px 12px;
+    margin-left: 0;
+    color: var(--text-muted);
+    border-radius: 6px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.25s ease;
+}
+
+.nav-sub li a::before {
+    display: none !important;
+}
+
+.nav-sub li a:hover {
+    color: var(--accent-cyan);
+    background: var(--nav-item-hover-bg);
+    transform: translateX(3px);
+}
+
+.nav-sub li a.sub-active {
+    color: var(--accent-cyan);
+    font-weight: 600;
+    background: var(--nav-item-hover-bg);
+}
+
+/* ==========================================================================
+   研究業績：件数バッジ & 一括開閉ボタン
+   ========================================================================== */
+.section-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-header-flex h2 {
+    margin-bottom: 0;
+}
+
+.pub-toggle-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-family: inherit;
+    color: var(--accent-cyan);
+    background: var(--nav-item-hover-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+}
+
+.pub-toggle-all-btn:hover {
+    background: var(--accent-cyan);
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+}
+
+.pub-toggle-all-btn i {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+}
+
+.pub-count-badge {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 2px 8px;
+    margin-left: 8px;
+    border-radius: 12px;
+    color: var(--accent-cyan);
+    background: var(--nav-item-hover-bg);
+    border: 1px solid var(--glass-border);
+    letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   業績リスト折りたたみ＆展開UI
+   ========================================================================== */
+.pub-collapsed-item {
+    display: none !important;
+}
+
+.pub-expand-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.pub-expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 18px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    font-family: inherit;
+    color: var(--text-secondary);
+    background: var(--card-bg);
+    border: 1px dashed var(--glass-border);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.pub-expand-btn:hover {
+    color: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+    border-style: solid;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.15);
+}
+
+.pub-expand-btn i {
+    font-size: 0.75rem;
+    color: var(--accent-cyan);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pub-expand-btn.is-expanded i {
+    transform: rotate(180deg);
+}
+
+/* スムーズスクロール用のマージントップ補正 */
+h3[id^="pub-"],
+h4[id^="pub-"] {
+    scroll-margin-top: 2rem;
 }
