@@ -7,10 +7,14 @@
     --text-muted: #64748b;
     --accent-cyan: #0284c7;
     --accent-purple: #7e22ce;
+    --chip-emerald: #0d9488;
+    --chip-glow: rgba(2, 132, 199, 0.2);
+    --circuit-line: rgba(2, 132, 199, 0.1);
+    --circuit-pulse: #0284c7;
     
     /* UI Elements */
-    --glass-bg: rgba(255, 255, 255, 0.5);
-    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.4);
     --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
     --nav-bg: rgba(255, 255, 255, 0.4);
     --nav-item-color: #475569;
@@ -21,21 +25,25 @@
 
 /* Dark Theme Overrides */
 [data-theme='dark'] {
-    --bg-color: #0b0f1a;
+    --bg-color: #080c14;
     --text-primary: #f1f5f9;
     --text-secondary: #e2e8f0;
     --text-muted: #94a3b8;
-    --accent-cyan: #38bdf8;
-    --accent-purple: #c084fc;
+    --accent-cyan: #00e5ff;
+    --accent-purple: #a855f7;
+    --chip-emerald: #10b981;
+    --chip-glow: rgba(0, 229, 255, 0.28);
+    --circuit-line: rgba(0, 229, 255, 0.12);
+    --circuit-pulse: #00f0ff;
     
-    --glass-bg: rgba(15, 23, 42, 0.5);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-    --nav-bg: rgba(15, 23, 42, 0.6);
+    --glass-bg: rgba(11, 17, 32, 0.65);
+    --glass-border: rgba(0, 229, 255, 0.12);
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    --nav-bg: rgba(8, 12, 20, 0.7);
     --nav-item-color: #cbd5e1;
-    --nav-item-hover-bg: rgba(56, 189, 248, 0.1);
-    --timeline-line: rgba(56, 189, 248, 0.2);
-    --timeline-bg: #1e293b;
+    --nav-item-hover-bg: rgba(0, 229, 255, 0.08);
+    --timeline-line: rgba(0, 229, 255, 0.2);
+    --timeline-bg: #0f172a;
 }
 
 body {
@@ -51,7 +59,7 @@ body {
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* 背景: 静的なグラデーション */
+/* 背景: 半導体回路と量子の動的キャンバス */
 .quantum-bg {
     position: fixed;
     top: 0;
@@ -60,9 +68,27 @@ body {
     height: 100vh;
     z-index: -1;
     overflow: hidden;
+    pointer-events: none;
     background-color: var(--bg-color);
-    background: radial-gradient(circle at 0% 0%, rgba(2, 132, 199, 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, rgba(126, 34, 206, 0.06) 0%, transparent 50%);
+    background: radial-gradient(circle at 15% 15%, rgba(13, 148, 136, 0.07) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(126, 34, 206, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(2, 132, 199, 0.05) 0%, transparent 60%);
+}
+
+[data-theme='dark'] .quantum-bg {
+    background: radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 40%, rgba(0, 229, 255, 0.08) 0%, transparent 60%);
+}
+
+#quantum-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
 }
 
 /* サイドバー: グラスモフィズム */
@@ -277,12 +303,13 @@ section {
 }
 
 section:hover {
-    transform: translateY(-5px);
-    border-color: rgba(2, 132, 199, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 16px 36px var(--chip-glow);
 }
 
 h2 {
+    position: relative;
     border-bottom: 1px solid var(--glass-border);
     padding-bottom: 1rem;
     font-weight: 600;
@@ -292,6 +319,24 @@ h2 {
     margin-top: 0;
     display: flex;
     align-items: center;
+}
+
+/* 半導体配線・シグナルラインのアクセント */
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--chip-emerald), var(--accent-cyan));
+    box-shadow: 0 0 8px var(--chip-glow);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+}
+
+section:hover h2::after {
+    width: 120px;
 }
 
 h2 i {
@@ -523,9 +568,23 @@ main a:not(.portfolio-item a, .stealth-link):hover {
 }
 
 .portfolio-item:hover {
-    transform: scale(1.03);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 14px 30px var(--chip-glow);
     border-color: var(--accent-cyan);
+}
+
+/* サイト最上部の回路シグナル光条（スクロールプログレス） */
+#circuit-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2.5px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--chip-emerald), var(--accent-cyan), var(--accent-purple));
+    box-shadow: 0 0 10px var(--accent-cyan), 0 0 4px var(--chip-emerald);
+    z-index: 9999;
+    pointer-events: none;
+    transition: width 0.1s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .portfolio-item img {
