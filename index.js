@@ -295,6 +295,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
+       6.5. ニュース詳細アコーディオン開閉 & ライトボックス連携（オンデマンド画像読み込み）
+       ========================================================================== */
+    const detailNewsItems = document.querySelectorAll('.timeline-list li.has-detail');
+    detailNewsItems.forEach(item => {
+        const detailImgs = item.querySelectorAll('.news-detail-img');
+
+        // ピルバッジまたはヘッダー・テキストのクリックでトグル
+        item.addEventListener('click', (e) => {
+            // 詳細コンテンツ内のクリック（テキスト選択やリンク・画像等）は開閉トリガーにしない
+            if (e.target.closest('.news-detail-wrapper')) {
+                return;
+            }
+
+            const willOpen = !item.classList.contains('open');
+            item.classList.toggle('open');
+
+            // 初回展開時にのみ画像をダウンロード（初期読み込み高速化・帯域節約）
+            if (willOpen && detailImgs.length > 0) {
+                detailImgs.forEach(img => {
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                });
+            }
+        });
+
+        // ニュース詳細画像のライトボックス拡大
+        if (detailImgs.length > 0 && lightbox) {
+            detailImgs.forEach(img => {
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const lightboxImg = lightbox.querySelector('img');
+                    const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+                    if (lightboxImg) {
+                        lightboxImg.src = img.src || img.dataset.src || '';
+                    }
+                    if (lightboxCaption) {
+                        lightboxCaption.textContent = img.alt || '';
+                    }
+                    lightbox.classList.add('show');
+                });
+            });
+        }
+    });
+
+    /* ==========================================================================
        7. スクロール回路シグナル光条 (Circuit Progress)
        ========================================================================== */
     const circuitProgress = document.getElementById('circuit-progress');
