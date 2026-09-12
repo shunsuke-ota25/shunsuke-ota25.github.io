@@ -374,7 +374,7 @@ h2 i {
     background: rgba(2, 132, 199, 0.08);
     color: var(--accent-cyan);
     border: 1px solid rgba(2, 132, 199, 0.25);
-    margin-right: 6px;
+    margin-left: 6px;
     vertical-align: 1px;
     letter-spacing: 0.02em;
     white-space: nowrap;
